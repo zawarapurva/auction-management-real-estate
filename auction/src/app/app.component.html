@@ -1,2 +1,60 @@
-<home></home>
-<router-outlet></router-outlet>
+<!-- 
+<nav class="navbar navbar-expand navbar-dark bg-dark fixed.top" >
+        <div class="navbar-nav">
+            <div class="nav nav-tabs" role="tablist">
+            <a class="nav-item nav-link nav-tabs active" data-toggle="tab" href="#home">
+                <div class="tab-content">
+                        <div id="home" class="container tab-pane active" routerLink="/"><br>
+                          <h3>HOME</h3>
+                        </div>
+                </div>
+            </a>
+            <a class="nav-item nav-link nav-tabs" data-toggle="tab" href="#myauctions">
+                    <div class="tab-content">
+                            <div id="myauction" class="container tab-pane active" routerLink="/myAuctions"><br>
+                              <h3>My Auctions</h3>
+                            </div>
+                    </div>
+            </a>
+            <a class="nav-item nav-link nav-tabs" data-toggle="tab" href="#createAuction">
+                    <div class="tab-content">
+                            <div id="createAuction" class="container tab-pane active" routerLink="/createAuction"><br>
+                              <h3>Create Auction</h3>
+                            </div>
+                    </div>
+                </a>
+        </div>
+        <a class="nav-item nav-link ">
+                <div class="dropdown">
+                        <button class="dropbtn hover">Search</button>
+                        <div class="dropdown-content">
+                          <a href="#">All</a>
+                          <a href="#">Residential</a>
+                          <a href="#">Commercial</a>
+                          <a href="#">Industrial</a>
+                          <a href="#">Open Land</a>
+                        </div>
+                </div></a>
+            <a class="nav-item nav-link float-right" href="#">
+                <div class="dropdown">
+                        <button class="dropbtn">Profile</button>
+                        <div class="dropdown-content">
+                          <a routerLink="/profile">My Profile</a>
+                          <a class="nav-item nav-link" (click)="logout()">Logout</a>
+                        </div>
+                </div></a>
+    </div>
+</nav> -->
+    
+    <!-- main app container -->
+    <div class="jumbotron">
+        <div class="container">
+            <nav></nav>
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <app-register></app-register>
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
