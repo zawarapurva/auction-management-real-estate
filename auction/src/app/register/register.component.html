@@ -43,20 +43,17 @@
             <div *ngIf="f.businesstype.errors.required">Business type is required</div>
         </div>
     </div>
-    <!-- <div class="form-group">
-        <label for="profile"></label>
-        <input type="file" formControlName="profile" ng2FileSElect [uploader]="uploader" />
-        <button type="button" class="btn btn-success btn-s" 
-            (click)="uploader.uploadAll()" 
-            [disabled]="!uploader.getNotUploadedItems().length" >
-                Upload image
-        </button>
+
+    <div class="form-group">
+        <label for="profile">Upload Profile image </label>
+            <input type="file" formControlName="profile" (change)="onFileSelect($event)"/>
         <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
             <div *ngIf="f.profile.errors.required">Profile image is required</div>
         </div>
-    </div> -->
+    </div>
+
     <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">
+        <button type="submit" [disabled]="loading" class="btn btn-primary" routerLink="/login">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Register
         </button>

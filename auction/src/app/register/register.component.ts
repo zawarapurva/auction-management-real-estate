@@ -1,10 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-import { AuthenticationService } from '../services/authentication.service';
-import { Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -12,19 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+    SERVER_URL = 'http://localhost:5000/register';
     registerForm: FormGroup;
     loading = false;
     submitted = false;
 
+    // showRegister() {
+    //   this.registerService.getregister()
+    //     .subscribe((data: User) => this.register = {
+    //     });
+    // }
+
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-  ) {
-    // if (this.authenticationService.currentUserValue) {
-    //   this.router.navigate(['/']);
-    // }
-  }
+    private httpClient: HttpClient,
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -34,27 +33,31 @@ export class RegisterComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         email: ['', Validators.required],
         businesstype: ['', Validators.required],
+        profile: ['', Validators.required]
     });
 }
-onSubmit() {
-  this.submitted = true;
 
-  // stop here if form is invalid
-  if (this.registerForm.invalid) {
-      return;
+onFileSelect(event) {
+  if (event.target.files.length > 0) {
+    const file = event.target.files[0];
+    this.registerForm.get('profile').setValue(file);
   }
+}
 
-  this.loading = true;
-  // this.userService.register(this.registerForm.value)
-  //     .pipe(first())
-  //     .subscribe(
-  //         data => {
-  //             this.alertService.success('Registration successful', true);
-  //             this.router.navigate(['/login']);
-  //         },
-  //         error => {
-  //             this.alertService.error(error);
-  //             this.loading = false;
-  //         });
+onSubmit() {
+  console.log('yes');
+  const formData = new FormData();
+  formData.append('firstname', this.registerForm.get('firstname').value);
+  formData.append('lastname', this.registerForm.get('lastname').value);
+  formData.append('username', this.registerForm.get('username').value);
+  formData.append('password', this.registerForm.get('password').value);
+  formData.append('email', this.registerForm.get('email').value);
+  formData.append('businesstype', this.registerForm.get('businesstype').value);
+  formData.append('file', this.registerForm.get('profile').value);
+
+  this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
+    (res) => console.log(res),
+    (err) => console.log(err)
+  );
 }
 }
