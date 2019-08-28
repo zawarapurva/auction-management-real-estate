@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "@hapi/boom": "^7.4.3",
+    "@hapi/hapi": "^18.3.2",
+    "bcrypt": "^3.0.6",
+    "boom": "^7.3.0",
+    "hapi": "^18.1.0",
+    "l": "^0.6.0",
+    "mongoose": "^5.6.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

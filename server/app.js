@@ -8,7 +8,7 @@ const init = async () => {
     const server = new Hapi.server({ port: 5000 });
 
     server.route({
-      method: 'GET',
+      method: 'POST',
       path: '/',
       handler: function (_request, _h) {
           return 'Auctions Home';
