@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, throwError } from 'rxjs';
+import { ErrorHandlerService } from '../services/errorHandler.service';
 
 @Component({
   selector: 'app-register',
@@ -13,16 +13,12 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-
-    // showRegister() {
-    //   this.registerService.getregister()
-    //     .subscribe((data: User) => this.register = {
-    //     });
-    // }
+  error: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
+    private service: ErrorHandlerService
   ) { }
 
   ngOnInit() {
@@ -56,8 +52,21 @@ onSubmit() {
   formData.append('file', this.registerForm.get('profile').value);
 
   this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
-    (res) => console.log(res),
-    (err) => console.log(err)
+    (res) => {
+      // this.router.navigate(['/login']);
+      return console.log(res);
+    },
+    (err) => {
+      if (err instanceof HttpErrorResponse) {
+        if (err.status === 400 || err.status === 500) {
+          this.error = err.error.message;
+          // this.registerForm.setErrors(err.blob);
+          return console.log(err);
+        } else {
+          return alert('An unexpected error occured');
+        }
+      }
+    }
   );
 }
 }

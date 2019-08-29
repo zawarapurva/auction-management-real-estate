@@ -1,14 +1,21 @@
 
-    
-    <!-- main app container -->
-    <div class="jumbotron">
-        <div class="container">
-            <nav></nav>
-            <div class="row">
-                <div class="col-sm-6 offset-sm-3">
-                    <app-register></app-register>
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
+<!-- //app-home
+<div class="flex-box container">
+        <div class="row ">
+            <app-home></app-home>
+            <router-outlet></router-outlet>
         </div>
+</div> -->
+   
+    <!-- //app-login and app-register -->
+    <div class="jumbotron"> 
+        <div class="flex-box container">
+             <div class="row">
+                <app-login></app-login>
+                <router-outlet></router-outlet>
+            </div>
+         </div>
     </div>
+
+        <!-- <app-auction></app-auction>
+        <router-outlet></router-outlet> -->

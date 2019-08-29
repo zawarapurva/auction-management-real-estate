@@ -1,0 +1,47 @@
+<div class="flex-container ml-2 p-2">
+    <div class="row p-2">
+        <a class="col-sm-12 col-lg-4" href="./loadimages.html">
+            <img src="" 
+            alt="property picture" style="width:128px;height:128px;">
+        </a>
+    <div class="row p-2 col-sm-12 col-lg-8">
+        <div class="col-sm-12 col-lg-4 address">
+            <h2>Property-name</h2>
+            <span class="medium">property type</span>
+            <br>
+            " property address "
+        </div>
+        <div class="col-sm-12 col-lg-4 property description">
+                <h2>Property description</h2>
+                <span class="medium"></span>
+                <br>
+                " description "
+        </div>
+        <div class="col-sm-12 col-lg-4 expiry">
+                <h2>Time remaining</h2>
+                <span class="medium">5 days</span>
+                <br>
+                " date "
+        </div>
+        <div class="col-sm-12 col-lg-4 price">
+                <h2>min bid value</h2>
+                <span class="medium">$50,0000</span>
+            </div>
+        <div class="col-sm-12 col-lg-4 price">
+                <h2>current bid value</h2>
+                <span class="medium">$2,00,0000</span>
+        </div>
+        
+        <div class="d-flex justify-content-center align-items-center col-sm-12 col-lg-4">
+            <button id="bidbox" type="submit" class=" btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                $Bid
+            </button>
+            <!-- <button type="submit" class=" ml-1 btn btn-primary"  routerLink="/viewdetails">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    View details
+            </button> -->
+        </div>
+        </div>
+</div>
+</div>

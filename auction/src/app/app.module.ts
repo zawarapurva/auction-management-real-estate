@@ -1,8 +1,8 @@
+import { ErrorHandlerService } from './services/errorHandler.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewDetailsComponent } from './view-details/view-details.component';
 import { CreateAuctionComponent } from './create-auction/create-auction.component';
+import { AuctionComponent } from './auction/auction.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { CreateAuctionComponent } from './create-auction/create-auction.componen
     ProfileComponent,
     ViewDetailsComponent,
     CreateAuctionComponent,
-    FileSelectDirective
+    AuctionComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,9 @@ import { CreateAuctionComponent } from './create-auction/create-auction.componen
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    ErrorHandlerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
