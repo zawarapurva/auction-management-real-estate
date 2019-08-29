@@ -17,8 +17,23 @@ const init = async () => {
 
   server.route(routes);
 
-  await server.start();
-  console.log('Server running on %s', server.info.uri);
+  const start = async function () {
+    try {
+      await server.register({
+        plugin: require('hapi-cors'),
+        options: {
+          origins: ['http://localhost:4200','*']
+        }
+      });
+      await server.start();
+      console.log('Server running on %s', server.info.uri);
+    } catch (err) {
+      console.log(err);
+      process.exit(1);
+    }
+  };
+
+  start();
 };
 
 init();
