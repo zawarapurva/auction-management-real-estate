@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorHandlerService } from '../services/errorHandler.service';
 
 @Component({
   selector: 'app-register',
@@ -17,8 +16,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    private service: ErrorHandlerService
+    private httpClient: HttpClient
   ) { }
 
   ngOnInit() {

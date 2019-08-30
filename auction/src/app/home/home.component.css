@@ -30,4 +30,6 @@
   
   .dropdown:hover .dropdown-content {display: block;}
   
-  .dropdown:hover .dropbtn {background-color: #435bc7;}
+  .dropdown:hover .dropbtn {background-color: white;
+    color: black;}
+    

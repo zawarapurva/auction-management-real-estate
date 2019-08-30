@@ -1,46 +1,44 @@
-<div class="flex-container ml-2 p-2">
-    <div class="row p-2">
-        <a class="col-sm-12 col-lg-4" href="./loadimages.html">
-            <img src="" 
-            alt="property picture" style="width:128px;height:128px;">
+<div class=" auction border border-dark rounded flex-container m-2 p-2">
+    <div class="row p-2 ">
+        <a class="d-flex justify-content-center col-sm-12 col-lg-3 mt-4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPjvtOiQGgYOwP2WkgKU4D3bhgv55XR6q2xtIDZJ7eEefgyfk2uw"
+            class="img" alt="property picture" style="width:250px;height:200px;">
         </a>
-    <div class="row p-2 col-sm-12 col-lg-8">
-        <div class="col-sm-12 col-lg-4 address">
-            <h2>Property-name</h2>
-            <span class="medium">property type</span>
-            <br>
-            " property address "
+    <div class="row p-2 col-sm-12 col-lg-9 ml-2">
+        <div class="col-sm-12 col-lg-4  mt-4 address">
+            <h6>411 Sherwood Morgan Drive</h6>
+            <span class="medium text-muted">Residential</span><br>
+            <span>Rockmart, GA 30153</span>
         </div>
-        <div class="col-sm-12 col-lg-4 property description">
-                <h2>Property description</h2>
-                <span class="medium"></span>
-                <br>
-                " description "
+        <div class="col-sm-12 col-lg-4 mt-4 property description">
+                <h6>Property Description</h6>
+                <div class="medium border border-dark bg-dark text-white mt-2 p-2 rounded">
+                3 Bedrooms 1 Full Baths 1 Half Baths 1262 Sq.Ft. Built in 1973 2 Car Garage
+                26 acres with a large backyard and screened in back porch.
+                </div>
         </div>
-        <div class="col-sm-12 col-lg-4 expiry">
-                <h2>Time remaining</h2>
-                <span class="medium">5 days</span>
-                <br>
-                " date "
+        <div class="col-sm-12 col-lg-4 mt-4 expiry">
+                <h6>Time remaining</h6>
+                <span class="medium text-muted">5 Days</span><br>
+                <h6>Ends on</h6>
+                <div class="border border-dark bg-dark text-white rounded p-2">
+                    21st September 2019
+                </div>
         </div>
-        <div class="col-sm-12 col-lg-4 price">
-                <h2>min bid value</h2>
-                <span class="medium">$50,0000</span>
+        <div class="col-sm-12 mt-4 col-lg-4 price">
+                <h6>Starting Bid</h6>
+                <span class="medium border bg-dark text-white rounded p-2">$50,0000</span>
             </div>
-        <div class="col-sm-12 col-lg-4 price">
-                <h2>current bid value</h2>
-                <span class="medium">$2,00,0000</span>
+        <div class="col-sm-12 mt-4 col-lg-4 price">
+                <h6>Current Bid</h6>
+                <span class="medium border bg-dark text-white rounded p-2">$2,00,0000</span>
         </div>
         
-        <div class="d-flex justify-content-center align-items-center col-sm-12 col-lg-4">
-            <button id="bidbox" type="submit" class=" btn btn-primary">
+        <div class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
+            <button id="bidbox" type="submit" class=" btn btn-dark">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 $Bid
             </button>
-            <!-- <button type="submit" class=" ml-1 btn btn-primary"  routerLink="/viewdetails">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    View details
-            </button> -->
         </div>
         </div>
 </div>

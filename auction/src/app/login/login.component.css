@@ -1,0 +1,12 @@
+.specialcard {
+        opacity: .8;
+        transition: all 1s ease-in-out
+    }
+
+    @-webkit-keyframes fadeinout {
+        50% { opacity: 1; }
+      }
+
+    @keyframes fadeinout {
+        50% { opacity: 1; }
+      }

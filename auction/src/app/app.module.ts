@@ -1,4 +1,3 @@
-import { ErrorHandlerService } from './services/errorHandler.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ViewDetailsComponent } from './view-details/view-details.component';
 import { CreateAuctionComponent } from './create-auction/create-auction.component';
 import { AuctionComponent } from './auction/auction.component';
 
@@ -21,7 +19,6 @@ import { AuctionComponent } from './auction/auction.component';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    ViewDetailsComponent,
     CreateAuctionComponent,
     AuctionComponent
   ],
@@ -33,7 +30,6 @@ import { AuctionComponent } from './auction/auction.component';
     AppRoutingModule
   ],
   providers: [
-    ErrorHandlerService
   ],
   bootstrap: [AppComponent]
 })

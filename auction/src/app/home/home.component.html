@@ -1,41 +1,54 @@
 <!-- for Nav bar no jumbotron -->
-<nav class="navbar navbar-expand navbar-dark bg-dark fixed.top" >
-    <div class="navbar-nav">
-        <div class="nav ">
-        <a class="nav-item nav-link" data-toggle="tab" href="#home">
-                    <div id="home" class="container" routerLink="/"><br>
-                      <h3>HOME</h3>
-                    </div>
-        </a>
-        <a class="nav-item nav-link " data-toggle="tab" href="#myauctions">
-                        <div id="myauction" class="container" routerLink="/myAuctions"><br>
-                          <h3>My Auctions</h3>
-                        </div>
-        </a>
-        <a class="nav-item nav-link " data-toggle="tab" href="#createAuction">
-                        <div id="createAuction" class="container" routerLink="/createAuction"><br>
-                          <h3>Create Auction</h3>
-                        </div>
+<nav class="navbar navbar-dark bg-dark fixed.top">
+  <div class="navbar-nav d-inline">
+    <div class="nav">
+        <div class="navbar-header">
+            <a class="logo" routerLink="/about">
+            <img src="./bidplot.jpg"
+            class="img" alt="logo">
             </a>
+        </div>
+      <a class="nav-item nav-link" data-toggle="tab">
+        <div id="home" class="container" routerLink="/">
+          HOME
+        </div>
+      </a>
+      <a class="nav-item nav-link " data-toggle="tab">
+        <div id="myAuction" class="container d-none d-sm-block" routerLink="/myAuctions">
+          My Auctions
+        </div>
+      </a>
+      <a class="nav-item nav-link" data-toggle="tab">
+        <div id="createAuction" class="container d-none d-sm-block" routerLink="/createAuction">
+          Create Auction
+        </div>
+      </a>
+      <a class="nav-item nav-link " data-toggle="tab" >
+          <div class="container dropdown">
+            Search
+          <div class="dropbtn hover dropdown-content">
+            <a routerLink="/getallauctions">All</a>
+            <a routerLink="/getResidential">Residential</a>
+            <a routerLink="/getCommercial">Commercial</a>
+            <a routerLink="/getIndustrial">Industrial</a>
+            <a routerLink="/getLand">Open Land</a>
+          </div>
+        </div>
+      </a>
+      <a class="nav-item nav-link " data-toggle="tab">
+          <div class="profile container dropdown">
+            Profile
+          <div class=" dropbtn hover dropdown-content">
+              <div class="d-block d-sm-none ">
+                  <a routerLink="/myAuction">My Auctions</a>
+                  <a routerLink="/createAuction">Create Auction</a>
+                  <a routerLink="/myBids">My Bids</a>
+              </div>
+              <a routerLink="/profile">My Profile</a>
+              <a class="nav-item nav-link" (click)="logout()">Logout</a>
+          </div>
+        </div>
+      </a>
     </div>
-    <a class="nav-item nav-link ">
-            <div class="dropdown">
-                    <button class="dropbtn hover">Search</button>
-                    <div class="dropdown-content">
-                      <a href="#">All</a>
-                      <a href="#">Residential</a>
-                      <a href="#">Commercial</a>
-                      <a href="#">Industrial</a>
-                      <a href="#">Open Land</a>
-                    </div>
-            </div></a>
-        <a class="nav-item nav-link float-right" href="#">
-            <div class="dropdown">
-                    <button class="dropbtn">Profile</button>
-                    <div class="dropdown-content">
-                      <a routerLink="/profile">My Profile</a>
-                      <a class="nav-item nav-link" (click)="logout()">Logout</a>
-                    </div>
-            </div></a>
-</div>
+  </div>
 </nav>

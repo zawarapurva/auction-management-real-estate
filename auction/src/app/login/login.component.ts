@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorHandlerService } from '../services/errorHandler.service';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private service: ErrorHandlerService
   ) { }
 
   ngOnInit() {
