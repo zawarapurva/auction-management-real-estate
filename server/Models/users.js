@@ -1,16 +1,18 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var Blob = mongoose.Schema.Types.Blob;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const usersSchema = new Schema({
-    firstname: { type: String  },
-    lastname: { type: String  },
-    username: { type: String },
-    password: {type: String, required:true },
+    firstname: { type: String,required: true  },
+    lastname: { type: String, required: true  },
+    username: { type: String, required: true },
     email: { type: String, required: true},
+    password: {type: String, required:true },
     jwt: {type: String },
-    businesstype: {type: String },
+    business_type: {type: String, required: true },
     address : {type: String },
+    // profile: { type: Blob, required: true},
     my_auctions: ObjectId,
     my_bids: ObjectId,
 });
