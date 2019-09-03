@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-  error: string;
+    error: string;
 
   constructor(
     private formBuilder: FormBuilder,
