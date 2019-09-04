@@ -1,5 +1,6 @@
+import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,35 +9,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    private SERVER_URL = 'http://localhost:5000/login';
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     error: string;
+    resp: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
+    // tslint:disable-next-line:variable-name
+    private _loginservice: LoginService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
         email: ['', Validators.required]
       });
   }
 
   onSubmit() {
-    const formData = new FormData();
-    formData.append('username', this.loginForm.get('username').value);
-    formData.append('password', this.loginForm.get('password').value);
-    formData.append('email', this.loginForm.get('email').value);
+    console.log(this.loginForm.value);
 
-    this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
+    this._loginservice.login(this.loginForm.value).subscribe(
       (res) => {
         localStorage.setItem('token', res.jwt);
-        // this.router.navigate(['/']);
+        this.resp = res.message;
         return console.log(res);
       },
       (err) => {
@@ -48,7 +46,7 @@ export class LoginComponent implements OnInit {
             return alert('An unexpected error occured');
           }
         }
-      }
-    );
+      });
 }
 }
+

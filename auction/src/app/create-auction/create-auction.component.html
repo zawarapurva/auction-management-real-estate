@@ -1,85 +1,87 @@
 <div class="d-flex justify-content-center fixed-top text-white bg-danger">
     {{ error }}
 </div>
+<app-home></app-home>
+<div class="jumbotron">
+    <div class="flex-box container">
+        <h2>Create Auction</h2>
+        <form [formGroup]="createAuctionForm" (ngSubmit)="onSubmit()">
 
-<h2>Create Auction</h2>
-<form [formGroup]="createAuctionForm" (ngSubmit)="onSubmit()">
-
-    <div class="form-group">
-        <label for="title">Property name</label>
-        <input type="text" min="20" max="50" formControlName="title" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
-        <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
-            <div *ngIf="f.title.errors.required">This is a required field</div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="property_type">Property Type</label><br>
-        <div class="form-control" [ngClass]="{ 'is-invalid': submitted && f.property_type.errors }">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="property_type" type="radio" class="form-control custom-control-input"
-                    id="residential" name="property_type" value="true">
-                <label class="custom-control-label" for="residential">Residential</label>
+            <div class="form-group">
+                <label for="title">Property name</label>
+                <input type="text" min="20" max="50" formControlName="title" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                    <div *ngIf="f.title.errors.required">This is a required field</div>
+                </div>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="property_type" type="radio" class="form-control custom-control-input"
-                    id="commercial" name="property_type">
-                <label class="custom-control-label" for="commercial">Commercial</label>
+
+            <div class="form-group">
+                <label for="property_type">Property Type</label><br>
+                <div class="form-control" [ngClass]="{ 'is-invalid': submitted && f.property_type.errors }">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input formControlName="property_type" type="radio" class="form-control custom-control-input"
+                            id="residential" name="property_type" value="true">
+                        <label class="custom-control-label" for="residential">Residential</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input formControlName="property_type" type="radio" class="form-control custom-control-input"
+                            id="commercial" name="property_type">
+                        <label class="custom-control-label" for="commercial">Commercial</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input formControlName="property_type" type="radio" class="form-control custom-control-input"
+                            id="industrial" name="property_type">
+                        <label class="custom-control-label" for="industrial">Industrial</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input formControlName="property_type" type="radio" class="form-control custom-control-input"
+                            id="openLand" name="property_type" value="true">
+                        <label class="custom-control-label" for="openLand">Open Land</label>
+                    </div>
+                    <div *ngIf="submitted && f.property_type.errors" class="invalid-feedback">
+                        <div *ngIf="f.property_type.errors.required">This is a required field</div>
+                    </div>
+                </div>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="property_type" type="radio" class="form-control custom-control-input"
-                    id="industrial" name="property_type">
-                <label class="custom-control-label" for="industrial">Industrial</label>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" min="20" max="100" formControlName="address" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.errors.required">Address is required</div>
+                </div>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input formControlName="property_type" type="radio" class="form-control custom-control-input"
-                    id="openLand" name="property_type" value="true">
-                <label class="custom-control-label" for="openLand">Open Land</label>
+
+            <div class="form-group">
+                <label for="description">Property Description</label>
+                <input type="text-area" min="20" max="300" formControlName="description" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.required">Description is required</div>
+                </div>
             </div>
-            <div *ngIf="submitted && f.property_type.errors" class="invalid-feedback">
-                <div *ngIf="f.property_type.errors.required">This is a required field</div>
+
+            <div class="form-group">
+                <label for="min_starting_bid">Starting bid</label>
+                <input type="number" min="1" formControlName="min_starting_bid" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.min_starting_bid.errors }" />
+                <div *ngIf="submitted && f.min_starting_bid.errors" class="invalid-feedback">
+                    <div *ngIf="f.min_starting_bid.errors.required">Starting bid is required</div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" min="20" max="100" formControlName="address" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
-        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-            <div *ngIf="f.address.errors.required">Address is required</div>
-        </div>
-    </div>
+            <div class="form-group">
+                <label for=" bid_value_multiple">Bid value multiple</label>
+                <input type="number" min="0.1" formControlName="bid_value_multiple" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.bid_value_multiple.errors }" />
+                <div *ngIf="submitted && f.bid_value_multiple.errors" class="invalid-feedback">
+                    <div *ngIf="f.bid_value_multiple.errors.required">Bid value multiple is required</div>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label for="description">Property Description</label>
-        <input type="text-area" min="20" max="300" formControlName="description" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
-        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
-            <div *ngIf="f.description.errors.required">Description is required</div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="min_starting_bid">Starting bid</label>
-        <input type="number" min="1" formControlName="min_starting_bid" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.min_starting_bid.errors }" />
-        <div *ngIf="submitted && f.min_starting_bid.errors" class="invalid-feedback">
-            <div *ngIf="f.min_starting_bid.errors.required">Starting bid is required</div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for=" bid_value_multiple">Bid value multiple</label>
-        <input type="number" min="0.1" formControlName="bid_value_multiple" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.bid_value_multiple.errors }" />
-        <div *ngIf="submitted && f.bid_value_multiple.errors" class="invalid-feedback">
-            <div *ngIf="f.bid_value_multiple.errors.required">Bid value multiple is required</div>
-        </div>
-    </div>
-
-    <div class="form-group" enctype="multipart/form-data" novalidate
+            <!-- <div class="form-group" enctype="multipart/form-data" novalidate
         *ngIf="currentStatus === STATUS_INITIAL || currentStatus === STATUS_SAVING">
         <label for="file">Upload Property image </label>
         <div class="dropbox">
@@ -93,8 +95,8 @@
                 Uploading {{ photos.files.length }} files...
             </p>
         </div>
-        <!-- <input type="file" formControlName="property_image" (change)="onFileSelect($event)" /> -->
-        <div class="margin-20" *ngIf="currentStatus === STATUS_SUCCESS">
+        <input type="file" formControlName="property_image" (change)="onFileSelect($event)" /> -->
+            <!-- <div class="margin-20" *ngIf="currentStatus === STATUS_SUCCESS">
             <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
             <p>
                 <a href="javascript:void(0)" (click)="reset()">Upload again</a>
@@ -104,31 +106,42 @@
                     <img [src]="item.url" class="img-responsive img-thumbnail" [alt]="item.originalName">
                 </li>
             </ul>
-        </div>
-        <!--FAILED-->
-        <div class="margin-20" *ngIf="currentStatus === STATUS_FAILED">
+        </div> -->
+            <!--FAILED-->
+            <!-- <div class="margin-20" *ngIf="currentStatus === STATUS_FAILED">
             <h2>Uploaded failed.</h2>
             <p>
                 <a href="javascript:void(0)" (click)="reset()">Try again</a>
             </p>
             <pre>{{ uploadError | json }}</pre>
         </div>
-    </div>
+    </div> -->
 
-    <div class="form-group">
-        <label for="expiry_date">Expiry Date</label>
-        <input type="date" formControlName="expiry_date" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.expiry_date.errors }" />
-        <div *ngIf="submitted && f.expiry_date.errors" class="invalid-feedback">
-            <div *ngIf="f.expiry_date.errors.required">Expiry date is required</div>
-        </div>
-    </div>
+            <div class="form-group">
+                <label for="expiry_date">Expiry Date</label>
+                <input type="date" formControlName="expiry_date" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.expiry_date.errors }" />
+                <div *ngIf="submitted && f.expiry_date.errors" class="invalid-feedback">
+                    <div *ngIf="f.expiry_date.errors.required">Expiry date is required</div>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <button type="submit" [disabled]="loading" class="btn btn-dark" routerLink="/home">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Submit
-        </button>
-        <a routerLink="/home" class="btn btn-link">Cancel</a>
+            <div class="form-group">
+                <label for="property_image">property_image</label>
+                <input type="file" (change)="onFileSelect($event)" formControlName="property_image" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.property_image.errors }" />
+                <div *ngIf="submitted && f.property_image.errors" class="invalid-feedback">
+                    <div *ngIf="f.property_image.errors.required">property_image is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" [disabled]="loading" class="btn btn-dark" routerLink="/home">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Submit
+                </button>
+                <a routerLink="/home" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>

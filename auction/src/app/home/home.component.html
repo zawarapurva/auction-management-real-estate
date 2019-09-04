@@ -1,15 +1,13 @@
-<!-- for Nav bar no jumbotron -->
 <nav class="navbar navbar-dark bg-dark fixed.top">
   <div class="navbar-nav d-inline">
     <div class="nav">
-        <div class="navbar-header">
-            <a class="logo" routerLink="/about">
-            <img src="./bidplot.jpg"
-            class="img" alt="logo">
-            </a>
-        </div>
+      <div class="navbar-header">
+        <a class="logo" routerLink="/about">
+          <img src="./../../../../../../../Desktop/bidplot.jpg" class="img" alt="logo">
+        </a>
+      </div>
       <a class="nav-item nav-link" data-toggle="tab">
-        <div id="home" class="container" routerLink="/">
+        <div id="home" class="container" routerLink="/home">
           HOME
         </div>
       </a>
@@ -23,9 +21,9 @@
           Create Auction
         </div>
       </a>
-      <a class="nav-item nav-link " data-toggle="tab" >
-          <div class="container dropdown">
-            Search
+      <a class="nav-item nav-link " data-toggle="tab">
+        <div class="container dropdown">
+          Search
           <div class="dropbtn hover dropdown-content">
             <a routerLink="/getallauctions">All</a>
             <a routerLink="/getResidential">Residential</a>
@@ -36,18 +34,19 @@
         </div>
       </a>
       <a class="nav-item nav-link " data-toggle="tab">
-          <div class="profile container dropdown">
-            Profile
+        <div class="profile container dropdown">
+          Profile
           <div class=" dropbtn hover dropdown-content">
-              <div class="d-block d-sm-none ">
-                  <a routerLink="/myAuction">My Auctions</a>
-                  <a routerLink="/createAuction">Create Auction</a>
-              </div>
-              <a routerLink="/profile">My Profile</a>
-              <a class="nav-item nav-link" (click)="logout()">Logout</a>
+            <div class="d-block d-sm-none ">
+              <a routerLink="/myAuction">My Auctions</a>
+              <a routerLink="/createAuction">Create Auction</a>
+            </div>
+            <a routerLink="/profile">My Profile</a>
+            <a class="nav-item nav-link" (click)="logout()">Logout</a>
           </div>
         </div>
       </a>
     </div>
   </div>
 </nav>
+<app-auction></app-auction>

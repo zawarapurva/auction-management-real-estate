@@ -97,10 +97,11 @@ export class CreateAuctionComponent implements OnInit {
     formData.append('min_starting_bid', this.createAuctionForm.get('min_starting_bid').value);
     formData.append('bid_value_multiple', this.createAuctionForm.get('bid_value_multiple').value);
     formData.append('expiry_date', this.createAuctionForm.get('expiry_date').value);
-    // formData.append('property_image', this.createAuctionForm.get('property_image').value);
+    formData.append('property_image', this.createAuctionForm.get('property_image').value);
 
     this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
       (res) => {
+        console.log(formData);
         // this.router.navigate(['/login']);
         return console.log(res);
       },
