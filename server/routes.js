@@ -8,14 +8,14 @@ const verifyCredentials = require('./verify').verifyCredentials;
 const fs = require('fs');
 const handleFileUpload = file => {
     return new Promise((resolve, reject) => {
-      fs.writeFile('./upload/test.png', file, err => {
-         if (err) {
-          reject(err)
-         }
-         resolve({ message: 'Upload successfully!' })
-      })
+        fs.writeFile('./upload/test.png', file, err => {
+            if (err) {
+                reject(err)
+            }
+            resolve({ message: 'Upload successfully!' })
+        })
     });
-   }
+}
 
 module.exports = [
     {
@@ -25,7 +25,6 @@ module.exports = [
         handler: async (request, h) => {
             const password = await bcrypt.hash(request.payload.password, 10);
             const existingUser = await isExistingUser(request.payload.email, request.payload.username);
-            console.log(existingUser);
             if (!existingUser) {
                 const user = new users({
                     firstname: request.payload.firstname,
@@ -36,8 +35,7 @@ module.exports = [
                     businesstype: request.payload.businesstype,
                     // profile: request.payload.profile,
                 });
-                // console.log(request.payload);
-                await user.save(user);
+                await user.save();
                 return h.response({
                     message: 'Registered!!'
                 }).code(200);
@@ -68,9 +66,9 @@ module.exports = [
     {
         method: 'POST',
         path: '/createAuction',
-        handler: async(request, h) => {
+        handler: async (request, h) => {
             const auction = new auctions({
-                title:request.payload.title,
+                title: request.payload.title,
                 property_type: request.payload.property_type,
                 address: request.payload.address,
                 description: request.payload.description,
@@ -81,16 +79,15 @@ module.exports = [
             });
             fs.writeFile('filename.png', BUFFER_DATA, err => {
                 if (!err) {
-                  console.log('Uploaded!')
+                    console.log('Uploaded!')
                 }
-              });
+            });
             const { payload } = req;
             const response = handleFileUpload(payload.file);
-            if (await auction.save(auction))
-            {
+            if (await auction.save(auction)) {
                 return response;
             }
-            else{
+            else {
                 return h.response({
                     message: 'Error! check all fields'
                 }).code(400);

@@ -10,9 +10,9 @@ const usersSchema = new Schema({
     email: { type: String, required: true},
     password: {type: String, required:true },
     jwt: {type: String },
-    business_type: {type: String, required: true },
+    businesstype: {type: String, required: true },
     address : {type: String },
-    // profile: { type: Blob, required: true},
+    // profile: { type: Blob },
     my_auctions: ObjectId,
     my_bids: ObjectId,
 });

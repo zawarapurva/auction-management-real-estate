@@ -9,6 +9,7 @@ const isExistingUser = async (email, username) => {
       { username: username }
     ]
   });
+
   if (user) {
     result = true;
     if (user.username === username && user.email === email) {
@@ -31,6 +32,7 @@ const isExistingUser = async (email, username) => {
     }
     return result;
   }
+  return null
 }
 
 module.exports = {
