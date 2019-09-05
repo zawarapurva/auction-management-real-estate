@@ -1,0 +1,53 @@
+<nav class=" d-flex navbar navbar-dark bg-dark text-white fixed.top">
+    <div class="navbar-nav d-inline">
+        <div class="nav">
+            <div class=" d-none d-sm-block">
+                <a class="logo" routerLink="/about">
+                    <img src="https://cdn.dribbble.com/users/1698777/screenshots/6114234/12.jpg" class="img" alt="logo"
+                        style="width:70px; height: 50px;">
+                </a>
+            </div>
+            <a class="nav-item nav-link" data-toggle="tab">
+                <div id="home" class="container" routerLink="/home">
+                    HOME
+                </div>
+            </a>
+            <a class="nav-item nav-link " data-toggle="tab">
+                <div id="myAuction" class="container d-none d-sm-block" routerLink="/myAuctions">
+                    My Auctions
+                </div>
+            </a>
+            <a class="nav-item nav-link" data-toggle="tab">
+                <div id="createAuction" class="container d-none d-sm-block" routerLink="/createAuction">
+                    Create Auction
+                </div>
+            </a>
+            <a class="nav-item nav-link " data-toggle="tab">
+                <div class="container dropdown">
+                    Search
+                    <div class="dropbtn hover dropdown-content">
+                        <a routerLink="/getallauctions">All</a>
+                        <a routerLink="/getResidential">Residential</a>
+                        <a routerLink="/getCommercial">Commercial</a>
+                        <a routerLink="/getIndustrial">Industrial</a>
+                        <a routerLink="/getLand">Open Land</a>
+                    </div>
+                </div>
+            </a>
+            <a class="nav-item nav-link " data-toggle="tab">
+                <div class=" float-right profile container dropdown">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHwAAAB8CAMAAACcwCSMAAAAZlBMVEX///8AAADg4ODCwsL6+vry8vK2traBgYHW1tb29vZ9fX11dXXb29uoqKilpaWQkJDp6enLy8uwsLBGRkaenp4hISFUVFQaGhpMTEw3NzcUFBS8vLxmZmYyMjKXl5c/Pz8rKytcXFyYkt7VAAAFP0lEQVRoge1b2aKiMAxFdgQBBRRcLt7//8khraJCkxSKM/PAeS3tsWmSJmm0rBUrVqxYseIB2/HTskPqO/bfY41CJyg2AxSBE0bfZnadbX0eMkuc663jfpH6slXzvhBcvsOc/9x6jqq+xll32vt9d/JZfK2rfuhW5otTe1m/flHuk8H5Rsm+7PWgyrxFqfPssfCdkusluD8+yxbc/a6Rax59Zk+5f5RfNoeFqJNfueB2r/P1PpZfXxex/lQuFmtL0n7Q74ypPblSG06ZFLby9xoqni08ymnyCe7kPCPRO2KN4wzdzYXmnZ353L6QXjlrrvsjJvtzuYWqVVo6rsK+MlA7wd1M0rRPhM1sdiHz1khhvWam5B2Y92voJnPhnyZrnbCx1thF57D380SL84C7WeB2EpI/TQtywK9VtK5FXujvdn7o0SuHoPPbKdxC0Ukbe12f9DXbWdxElU8Y3xIdXpGLjB8OxPaFt9E/dtDRIz4c1psRavyMXPC0V13uHegIrujpmBqQohNy0F7Nuym/kd9mau4udiJ30+iZLazeoqMHjJv6wS35297gwTroCTo4N+HKQhjV8Rqw8RgbjG4UeYPqfKy39fzUfYeeD3rgzLHb3WDFnzpYJeqQPJqbEC1snY9KQK6obys5ctTewM/dOO7LhvAvrsK7fKJG81TwNFwWuaW+CZHs+IUzaiYQmwQ0d9R9ckcP7sJxEz88h+uAzt8d8vfFPDlqpFaw4WIaUupWy5MX6GQQG3mve5Bk48M8NzO7pgIP0Cj8txuSdxs7JQQ5iIZwBWbk4L6oQwelIKInM3LwM5SxdZKpCMmYkSedsdUE+YbWCTNyRpvdDR1saZgaHoVY1pUWzIY2RSMnI6fjUSz4tx9its+TU1khBAO4ukN8RoX3e56cyjRS8sfBKHXteaNq8xAFFaiB4PAAuyTlYknXT4J03nCquAsrGbnJKJQCmVvuzcgtJpShfIgOOX3lMvpOV0BosXMKZzF+hvIwFqdwnKlZjLUxVTPa1EAuXF4R4NxMfMg4GXCvlH8UQG2diEIkaPfKXSwCOcJesNkQfbGwYZaA3ai4b2zhg7lSuWDigeg65v7lq11cMMGEUU+4o5ztR+M5jwujQN1xS+xgZ1Iw+YfSB/ZjkBQ9F0AyobObnvvo1ztci3t1uhfX9HGT2afNOSUk0DKhM60Tj9eD3k+4dhLaPZsPVQXqVYLVZipd2j2lfFUQ5L0SYmUhcK50GRRPFN23u/yeDZ8zs/trNFCLnk8UIUVW1k7y46d6B5eeP7oMXO5RFc5opMiY3JNBsRV+YxFnaZrFrWJIofUaxQGkLBKOCUgoquVHVuqWuiCkUZEYYsgDHqbhuIUrGNxsZNVRk12vFCaKgB9nNot78JioWQQclT81MgU13g8PNk7lQk8MCr9CErPwtlOxAa1Xno+St0dWemm8XqcgAtAqecu3sGccydYcKTxtFiJHzWK/cOJn+S1bbKUh9XvKM4cMtkQVdZ6ivwFUXlRstR94hGGAcpocuASU/0WNfsKL5uNRj01KeQRSepPescVzJvGWo4/D5OdMy5tt3SpUE7vVbLa0ro+pT9gLKPoLM1pGNEpPepjVMIK8mU6FSbvIP+JeRPKzm3Se7UnzYdKeJFIgA6ii2CnwNIq9GLbmnbA7nkUN82a8DraiFsBjmTbEDgdlIYTCYg2Y1lvrqSaWbD21PppuOVQ/y7dc56VWXNN8od1YYJgLjxEYeRUG0GKO+J3Tl1vMBaLECUbRfB04w+brb+Lf/K1gxYoVK1b87/gD1DE6xZGZUVcAAAAASUVORK5CYII="
+                        alt="Profile" style="width:50px; height: 50px;">
+                    <div class="dropbtn hover dropdown-content">
+                        <div class="d-block d-sm-none ">
+                            <a routerLink="/myAuction">My Auctions</a>
+                            <a routerLink="/createAuction">Create Auction</a>
+                        </div>
+                        <a routerLink="/profile">My Profile</a>
+                        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>

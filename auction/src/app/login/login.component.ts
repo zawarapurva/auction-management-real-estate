@@ -1,7 +1,9 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -14,27 +16,40 @@ export class LoginComponent implements OnInit {
     submitted = false;
     error: string;
     resp: string;
+    returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    // tslint:disable-next-line:variable-name
-    private _loginservice: LoginService
+    private route: ActivatedRoute,
+    private loginservice: LoginService,
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(6)]],
-        email: ['', Validators.required]
+        email: ['', [Validators.required, Validators.email]]
       });
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home';
   }
 
-  onSubmit() {
-    console.log(this.loginForm.value);
+  get f() { return this.loginForm.controls; }
 
-    this._loginservice.login(this.loginForm.value).subscribe(
+  onSubmit() {
+    this.submitted = true;
+    this.alertService.clear();
+    console.log(this.loginForm.value);
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.loading = true;
+
+    this.loginservice.login(this.loginForm.value).subscribe(
       (res) => {
         localStorage.setItem('token', res.jwt);
         this.resp = res.message;
+        this.router.navigate([this.returnUrl]);
         return console.log(res);
       },
       (err) => {
@@ -46,6 +61,8 @@ export class LoginComponent implements OnInit {
             return alert('An unexpected error occured');
           }
         }
+        this.alertService.error(err);
+        this.loading = false;
       });
 }
 }

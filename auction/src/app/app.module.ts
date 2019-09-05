@@ -1,3 +1,4 @@
+import { AlertService } from './services/alert.service';
 import { LoginService } from './login/login.service';
 import { RegistrationService } from './register/registration.service';
 import { CreateAuctionService } from './create-auction/create-auction.service';
@@ -8,11 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule , routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    NavbarComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,8 @@ import { AppComponent } from './app.component';
   providers: [
     CreateAuctionService,
     RegistrationService,
-    LoginService
+    LoginService,
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

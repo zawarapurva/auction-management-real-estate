@@ -10,3 +10,7 @@
     @keyframes fadeinout {
         50% { opacity: 1; }
       }
+
+      .container .jumbotron {
+        padding:0px 3px;
+        }

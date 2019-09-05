@@ -1,7 +1,10 @@
+import { AlertService } from './../services/alert.service';
+import { RouterModule, Router } from '@angular/router';
 import { RegistrationService } from './registration.service';
 import {  HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +20,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -26,24 +31,27 @@ export class RegisterComponent implements OnInit {
         lastname: ['', Validators.required],
         username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
-        email: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
         businesstype: ['', Validators.required],
         // profile: ['', Validators.required]
     });
 }
-
-// onFileSelect(event) {
-//   if (event.target.files.length > 0) {
-//     const file = event.target.files[0];
-//     console.log(this.registerForm.get('profile').patchValue('shajhds', file));
-//   }
-// }
+get f() { return this.registerForm.controls; }
 
 onSubmit() {
+  this.submitted = true;
+  this.alertService.clear();
+  if (this.registerForm.invalid) {
+            return;
+        }
   console.log(this.registerForm.value);
-  this.registrationService.register(this.registerForm.value).subscribe(
+  this.registrationService.register(this.registerForm.value)
+  .pipe(first())
+  .subscribe(
     (res) => {
       this.resp = res.message;
+      this.alertService.success('Registration successful', true);
+      this.router.navigate(['/login']);
       return console.log(res);
     },
     (err) => {
@@ -55,6 +63,8 @@ onSubmit() {
           return alert('An unexpected error occured');
         }
       }
+      this.alertService.error(err);
+      this.loading = false;
     });
 }
 }

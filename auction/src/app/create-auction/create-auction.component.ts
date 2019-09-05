@@ -28,7 +28,7 @@ export class CreateAuctionComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private _svc: CreateAuctionService
+    private svc: CreateAuctionService
   ) {
     this.reset();
    }
@@ -45,7 +45,7 @@ export class CreateAuctionComponent implements OnInit {
       // property_image:  ['', Validators.required]
   });
   }
-
+  get f() { return this.createAuctionForm.controls; }
   // onFileSelect($event) {
   //   if ($event.target.files.length > 0) {
   //     const file = $event.target.files[0];
@@ -77,7 +77,7 @@ export class CreateAuctionComponent implements OnInit {
   save(formData: FormData) {
     // upload data to the server
     this.currentStatus = this.STATUS_SAVING;
-    this._svc.upload(formData)
+    this.svc.upload(formData)
       .take(1)
       .subscribe(x => {
         this.uploadedFiles = [].concat(x);
