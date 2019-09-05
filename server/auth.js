@@ -9,7 +9,6 @@ const isExistingUser = async (email, username) => {
       { username: username }
     ]
   });
-
   if (user) {
     result = true;
     if (user.username === username && user.email === email) {
