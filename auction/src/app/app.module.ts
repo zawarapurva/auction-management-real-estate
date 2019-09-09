@@ -1,3 +1,5 @@
+import { AuthGuard } from './auth/guards/auth.guard';
+import { AuthService } from './auth/auth.service';
 import { AlertService } from './services/alert.service';
 import { LoginService } from './login/login.service';
 import { RegistrationService } from './register/registration.service';
@@ -30,7 +32,9 @@ import { AlertComponent } from './alert/alert.component';
     CreateAuctionService,
     RegistrationService,
     LoginService,
-    AlertService
+    AlertService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

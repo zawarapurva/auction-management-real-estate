@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private loginservice: LoginService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         localStorage.setItem('token', res.jwt);
         this.resp = res.message;
+        localStorage.setItem('email', res.payload.email);
         this.router.navigate([this.returnUrl]);
         return console.log(res);
       },

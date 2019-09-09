@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
   error: string;
-  _url = 'http://localhost:5000/login';
+  url = 'http://localhost:5000/login';
   constructor(
-    private _httpClient: HttpClient
+    private httpClient: HttpClient
   ) { }
 
   login(formData) {
-    return this._httpClient.post<any>(this._url, formData);
+    return this.httpClient.post<any>(this.url, formData);
   }
 }
