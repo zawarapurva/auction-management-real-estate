@@ -1,3 +1,5 @@
+import { AuthGuard } from './auth/guard/auth.guard';
+import { AuthService } from './auth/auth.service';
 import { AlertService } from './services/alert.service';
 import { LoginService } from './login/login.service';
 import { RegistrationService } from './register/registration.service';
@@ -11,6 +13,8 @@ import { AppRoutingModule , routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AlertComponent } from './alert/alert.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginGuard } from './auth/guard/login.guard';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,7 @@ import { AlertComponent } from './alert/alert.component';
     routingComponents,
     NavbarComponent,
     AlertComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,10 @@ import { AlertComponent } from './alert/alert.component';
     CreateAuctionService,
     RegistrationService,
     LoginService,
-    AlertService
+    AlertService,
+    AuthService,
+    AuthGuard,
+    LoginGuard
   ],
   bootstrap: [AppComponent]
 })

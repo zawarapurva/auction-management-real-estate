@@ -1,63 +1,57 @@
-<nav class="d-flex navbar navbar-dark bg-light fixed.top">
-        <div class="navbar-header">
-            <a class="logo" routerLink="/about">
-                <img src="https://theplotrestaurant.com/wp-content/uploads/2019/04/theplotblackFLAT-CLEAN.png"
-                 class="img" alt="logo" style="width:100px; height: 70px;">
-            </a>
-        </div>
-        <div class="float-right">
-            <img src="https://image.flaticon.com/icons/png/512/64/64572.png"
-                alt="Profile" style="width:50px; height: 50px;">
-        </div>
-    </nav>
+<div style="background-image: url('https://images.unsplash.com/photo-1503174971373-b1f69850bded?ixlib=rb-1.2.1&auto=format&fit=crop&w=1987&q=80');
+background-repeat: no-repeat;background-attachment:fixed; background-size:cover; background-position: center center; height: 100vh;">
 
-<div class="specialcard d-flex justify-content-center tab-content tab-pane fade in fixed-top text-white bg-danger">
-    {{ error }}
-</div>
-<div class="d-flex justify-content-center fixed-top text-white bg-success">
-    {{ resp }}
-</div>
+    <app-navbar></app-navbar>
 
-<div class="jumbotron vh-100 mb-50 pb-5 pt-5 view fixed.top" style="background-image: url('https://images.unsplash.com/photo-1503174971373-b1f69850bded?ixlib=rb-1.2.1&auto=format&fit=crop&w=1987&q=80');
- background-repeat: no-repeat;background-attachment:fixed; background-size:auto; background-position: center center;">
-    <div class="flex-box container ml-2 rounded-2">
-        <div class="row">
-            <form style="border-radius: 15px;background-color: white; opacity: 0.85;padding: 20px" [formGroup]="loginForm">
-                <div><h2>Login</h2></div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" formControlName="email" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                        <div *ngIf="f.email.errors.required">Email is required</div>
-                        <div *ngIf="f.email.errors.email">Email format invalid</div>
+    <div class="specialcard d-flex justify-content-center tab-content tab-pane fade in fixed-top text-white bg-danger">
+        {{ error }}
+    </div>
+    <div class="d-flex justify-content-center fixed-top text-white bg-success">
+        {{ resp }}
+    </div>
+
+
+    <div class="jumbotron " style="background: transparent">
+        <div class="flex-box container ml-3 rounded-2">
+            <div class="row">
+                <form style="border-radius: 15px;background-color: white; opacity: 0.85; padding: 30px"
+                    [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div>
+                        <h2>Login</h2>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" formControlName="password" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is required</div>
-                        <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email format invalid</div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" [disabled]="loading" class="btn btn-dark">
-                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                        Login
-                    </button>
-                    <a routerLink="/register" class="btn btn-link-dark">Cancel</a>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" [disabled]="loading" class="btn btn-dark" routerLink="/register">
-                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                        Register
-                    </button>
-                </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="loading" class="btn btn-dark">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Login
+                        </button>
+                        <a routerLink="/register" class="btn btn-link-dark">Cancel</a>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="loading" class="btn btn-dark" routerLink="/register">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Register
+                        </button>
+                    </div>
             </form>
         </div>
     </div>
+</div>
 </div>

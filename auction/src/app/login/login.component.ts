@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../services/alert.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,9 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private loginservice: LoginService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
+
   ) { }
 
   ngOnInit() {
@@ -44,11 +47,13 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-
+    console.log(this.loginForm.value);
     this.loginservice.login(this.loginForm.value).subscribe(
       (res) => {
         localStorage.setItem('token', res.jwt);
         this.resp = res.message;
+        console.log(res);
+        localStorage.setItem('email', this.loginForm.value.email);
         this.router.navigate([this.returnUrl]);
         return console.log(res);
       },
