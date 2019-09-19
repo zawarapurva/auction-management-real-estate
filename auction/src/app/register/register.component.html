@@ -1,101 +1,83 @@
 <div style="background-image: url('https://images.unsplash.com/photo-1503174971373-b1f69850bded?ixlib=rb-1.2.1&auto=format&fit=crop&w=1987&q=80');
 background-repeat: no-repeat;background-attachment:fixed; background-size:cover; background-position: center center; height: 100vh;">
+    
+    <app-navbar></app-navbar>
 
-<nav class="d-flex navbar navbar-dark bg-light fixed.top">
-    <div class="navbar-header">
-        <a class="logo" routerLink="/about">
-            <img src="https://theplotrestaurant.com/wp-content/uploads/2019/04/theplotblackFLAT-CLEAN.png" class="img"
-                alt="logo" style="width:100px; height: 70px;">
-        </a>
+    <div class="d-flex justify-content-center fixed-top text-white bg-danger">
+        {{ error }}
     </div>
-    <div class="float-right">
-        <img src="https://image.flaticon.com/icons/png/512/64/64572.png" alt="Profile"
-            style="width:50px; height: 50px;">
+    <div class="d-flex justify-content-center fixed-top text-white bg-success">
+        {{ resp }}
     </div>
-</nav>
 
-<div class="d-flex justify-content-center fixed-top text-white bg-danger">
-    {{ error }}
-</div>
-<div class="d-flex justify-content-center fixed-top text-white bg-success">
-    {{ resp }}
-</div>
-
-<div class="jumbotron" style="background: transparent">
-    <div class="flex-box container ml-3 rounded-2">
-    <div class="row">
-        <form style="border-radius: 15px; background-color: white; opacity: 0.85; padding: 30px" (ngSubmit)="onSubmit()"
-            [formGroup]="registerForm">
-            <div>
-                <h2>Register</h2>
+    <div class="jumbotron" style="background: transparent">
+        <div class="flex-box container ml-3 rounded-2">
+            <div class="row">
+                <form style="border-radius: 15px; background-color: white; opacity: 0.85; padding: 30px"
+                    (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+                    <div>
+                        <h2>Register</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" formControlName="firstname" id="firstname" name="firstname"
+                            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
+                        <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstname.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" formControlName="lastname" id="lastname" name="lastname" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+                        <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastname.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" formControlName="username" id="username" name="username" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" id="password" name="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" id="email" name="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">email is required</div>
+                            <div *ngIf="f.email.errors.email">Email format invalid</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="businesstype">Business type</label>
+                        <input type="text" formControlName="businesstype" id="businesstype" name="businesstype"
+                            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.businesstype.errors }" />
+                        <div *ngIf="submitted && f.businesstype.errors" class="invalid-feedback">
+                            <div *ngIf="f.businesstype.errors.required">Business type is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="!registerForm.is-valid" class="btn btn-dark">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Register
+                        </button>
+                        <a routerLink="/login" class="btn btn-link-dark">Cancel</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="firstname">First Name</label>
-                <input type="text" formControlName="firstname" id="firstname" name="firstname" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
-                <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstname.errors.required">First Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="lastname">Last Name</label>
-                <input type="text" formControlName="lastname" id="lastname" name="lastname" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
-                <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastname.errors.required">Last Name is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="username" id="username" name="username" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Username is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" id="password" name="password" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" formControlName="email" id="email" name="email" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">email is required</div>
-                    <div *ngIf="f.email.errors.email">Email format invalid</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="businesstype">Business type</label>
-                <input type="text" formControlName="businesstype" id="businesstype" name="businesstype"
-                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.businesstype.errors }" />
-                <div *ngIf="submitted && f.businesstype.errors" class="invalid-feedback">
-                    <div *ngIf="f.businesstype.errors.required">Business type is required</div>
-                </div>
-            </div>
-
-            <!-- <div class="form-group">
-        <label for="profile">Upload Profile image </label>
-            <input type="file" name="file" formControlName="profile" (change)="onFileSelect($event)"/>
-        <div *ngIf="submitted && f.profile.errors" class="invalid-feedback">
-            <div *ngIf="f.profile.errors.required">Profile image is required</div>
         </div>
-    </div> -->
-
-            <div class="form-group">
-                <button type="submit" [disabled]="!registerForm.is-valid" class="btn btn-dark">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Register
-                </button>
-                <a routerLink="/login" class="btn btn-link-dark">Cancel</a>
-            </div>
-        </form>
     </div>
 </div>
 </div>

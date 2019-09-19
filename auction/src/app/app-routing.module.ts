@@ -1,4 +1,5 @@
-import { AuthGuard } from './auth/guards/auth.guard';
+import { LoginGuard } from './auth/guard/login.guard';
+import { AuthGuard } from './auth/guard/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuctionComponent } from './auction/auction.component';
@@ -12,8 +13,8 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '' , redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login' , component: LoginComponent },
-  { path: 'register' , component: RegisterComponent },
+  { path: 'login' , canActivate: [LoginGuard], component: LoginComponent },
+  { path: 'register' , canActivate: [LoginGuard], component: RegisterComponent },
   { path: 'home' , canActivate: [AuthGuard], component: HomeComponent },
   { path: 'createAuction' , canActivate: [AuthGuard], component: CreateAuctionComponent },
   { path: 'profile' , canActivate: [AuthGuard],  component: ProfileComponent },
@@ -27,11 +28,11 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [
-   LoginComponent,
-   RegisterComponent,
-   HomeComponent,
-   CreateAuctionComponent,
-   ProfileComponent,
-   AuctionComponent,
-   PageNotFoundComponent ];
-
+  LoginComponent,
+  RegisterComponent,
+  HomeComponent,
+  CreateAuctionComponent,
+  ProfileComponent,
+  AuctionComponent,
+  PageNotFoundComponent
+ ];

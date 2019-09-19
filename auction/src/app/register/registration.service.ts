@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class RegistrationService {
   error: string;
-  _url = 'http://localhost:5000/register';
+  url = 'http://localhost:5000/register';
   constructor(
-    private _httpClient: HttpClient
+    private httpClient: HttpClient
   ) { }
 
   register(formData) {
-    return this._httpClient.post<any>(this._url, formData);
+    return this.httpClient.post<any>(this.url, formData);
   }
   }
