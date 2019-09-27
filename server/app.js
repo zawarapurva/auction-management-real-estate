@@ -1,12 +1,11 @@
 const Hapi = require('@hapi/hapi');
 const db = require('./database').db;
 const routes = require('./routes');
-const config = require('./config')
+const Inert = require('inert')
 
 const init = async () => {
- 
     const server = new Hapi.server({ port: 5000 });
-
+    await server.register(Inert);
     server.route({
       method: 'POST',
       path: '/',
@@ -35,5 +34,4 @@ const init = async () => {
 
   start();
 };
-
 init();

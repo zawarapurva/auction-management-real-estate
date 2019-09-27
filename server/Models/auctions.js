@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var Blob = mongoose.Schema.Types.Blob;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const auctionsSchema = new Schema({
@@ -12,8 +11,8 @@ const auctionsSchema = new Schema({
     min_starting_bid: { type: Number, required: true },
     max_current_bid: { type: Number },
     bid_value_multiple: { type: Number, required: true },
-    expiry_date: { type: Date, required: true},
-    // property_image: { type: Blob, required: true}
+    expiry_date: { type: String, required: true},
+    image_name:{ type: String }
 });
 
 module.exports = mongoose.model('auctions', auctionsSchema);
