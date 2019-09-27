@@ -13,14 +13,6 @@
     background: rgb(39, 42, 43); /* when mouse over to the drop zone, change color */
 }
 
-input[type="file"] {
-    opacity: 0; /* invisible but it's there! */
-    width: 100%;
-    height: 200px;
-    position: absolute;
-    cursor: pointer;
-}
-
 .dropbox p {
     font-size: 1.2em;
     text-align: center;

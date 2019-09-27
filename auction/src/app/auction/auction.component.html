@@ -1,45 +1,45 @@
-<div class=" auction border border-dark rounded flex-container m-2 p-2">
-    <div class="row p-2 ">
-        <a class="d-flex justify-content-center col-sm-12 col-lg-3 mt-4">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPjvtOiQGgYOwP2WkgKU4D3bhgv55XR6q2xtIDZJ7eEefgyfk2uw"
-            class="img" alt="property picture" style="width:250px;height:200px;">
-        </a>
-    <div class="row p-2 col-sm-12 col-lg-9 ml-2">
-        <div class="col-sm-12 col-lg-4  mt-4 address">
-            <h6>411 Sherwood Morgan Drive</h6>
-            <span class="medium text-muted">Residential</span><br>
-            <span>Rockmart, GA 30153</span>
-        </div>
-        <div class="col-sm-12 col-lg-4 mt-4 property description">
-                <h6>Property Description</h6>
-                <div class="medium border border-dark bg-dark text-white mt-2 p-2 rounded">
-                3 Bedrooms 1 Full Baths 1 Half Baths 1262 Sq.Ft. Built in 1973 2 Car Garage
-                26 acres with a large backyard and screened in back porch.
+<div style="margin-top: 20px;">
+    <div class=" auction border rounded flex-container m-2">
+        <div class="row mr-1">
+            <a class="d-flex justify-content-center col-sm-12 col-lg-3 mt-4">
+                <img src={{auction.image_name}}
+                    class="img" alt="property_image" style="width:250px;height:200px;">
+            </a>
+            <div class="row p-2 col-sm-12 col-lg-9 ml-2">
+                <div class="col-sm-12 col-lg-4  mt-4 address">
+                    <h6>{{ auction.title }}</h6>
+                    <span class="medium text-muted">{{ auction.property_type}}</span><br>
+                    <span>{{ auction.address }}</span>
                 </div>
-        </div>
-        <div class="col-sm-12 col-lg-4 mt-4 expiry">
-                <h6>Time remaining</h6>
-                <span class="medium text-muted">5 Days</span><br>
-                <h6>Ends on</h6>
-                <div class="border border-dark bg-dark text-white rounded p-2">
-                    21st September 2019
+                <div class="col-sm-12 col-lg-4 mt-4 ">
+                    <h6>Property Description</h6>
+                    <div class="property_description medium border border-dark bg-dark text-white mt-2 p-2 rounded">
+                        {{ auction.description }}
+                    </div>
                 </div>
-        </div>
-        <div class="col-sm-12 mt-4 col-lg-4 price">
-                <h6>Starting Bid</h6>
-                <span class="medium border bg-dark text-white rounded p-2">$50,0000</span>
+                <div class="col-sm-12 col-lg-4 mt-4 expiry">
+                    <h6>Ends on</h6>
+                    <div class="border border-dark bg-dark text-white rounded p-2">
+                        {{ auction.expiry_date }}
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-4 col-lg-4 price">
+                    <h6>Starting Bid</h6>
+                    <span class="medium border bg-dark text-white rounded p-2">$ {{ auction.min_starting_bid }}</span>
+                </div>
+                <div class="col-sm-12 mt-4 col-lg-4 price">
+                    <h6>Current Bid</h6>
+                    <span class="medium border bg-dark text-white rounded p-2">$ {{ auction.max_current_bid }}</span>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
+                    <input type="number" class="border rounded" >
+                    <button id="bidbox" type="submit" class=" btn btn-dark ml-2 mr-2">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        $Bid
+                    </button>
+                </div>
             </div>
-        <div class="col-sm-12 mt-4 col-lg-4 price">
-                <h6>Current Bid</h6>
-                <span class="medium border bg-dark text-white rounded p-2">$2,00,0000</span>
         </div>
-        
-        <div class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
-            <button id="bidbox" type="submit" class=" btn btn-dark">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                $Bid
-            </button>
-        </div>
-        </div>
-</div>
+    </div>
 </div>

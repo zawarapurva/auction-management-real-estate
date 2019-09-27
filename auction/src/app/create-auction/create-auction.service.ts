@@ -1,25 +1,28 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/take';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateAuctionService {
-  baseUrl = 'http://localhost:5000'; // our local Hapi Js API
+  error: string;
+  url = 'http://localhost:5000/createAuction';
+  constructor(
+    private httpClient: HttpClient,
+  ) { }
 
-  constructor(private _http: HttpClient) { }
-
-  upload(formData) {
-      const url = `${this.baseUrl}/photos/upload`;
-      return this._http.post(url, formData)
-          // .map(x => x.json())
-          .map((x: any[]) => x
-        // add a new field url to be used in UI later
-              .map(item => Object
-                  .assign({}, item, { url: `${this.baseUrl}/images/${item.id}` }))
-          );
+  submit(formValues) {
+    const formData = new FormData();
+    formData.append('title', formValues.title);
+    formData.append('property_type', formValues.property_type);
+    formData.append('address', formValues.address);
+    formData.append('description', formValues.description);
+    formData.append('min_starting_bid', formValues.min_starting_bid);
+    formData.append('bid_value_multiple', formValues.bid_value_multiple);
+    formData.append('expiry_date', formValues.expiry_date);
+    formData.append('bid_value_multiple', formValues.bid_value_multiple);
+    formData.append('property_image', formValues.property_image, formValues.property_image.name);
+    formData.append('property_image_type', formValues.property_image_type);
+    return this.httpClient.post<any>(this.url, formData);
   }
 }

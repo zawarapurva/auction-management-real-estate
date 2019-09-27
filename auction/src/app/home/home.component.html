@@ -1,2 +1,4 @@
 <app-navbar></app-navbar>
-<app-auction></app-auction>
+<div  style="padding-top: 100px;">
+    <app-auction *ngFor = "let auction of auctions" [auction] = "auction"></app-auction>
+</div>
