@@ -5,7 +5,7 @@ const isExistingUser = require('../auth').isExistingUser;
 const verifyCredentials = require('../verify').verifyCredentials;
 const uploadPic = require('../upload/imagefile');
 
-exports.register =  async (request, h) => {
+exports.register = async (request) => {
     const password = await bcrypt.hash(request.payload.password, +10);
     const existingUser = await isExistingUser(request.payload.email, request.payload.username);
     if (!existingUser) {
@@ -18,60 +18,77 @@ exports.register =  async (request, h) => {
             businesstype: request.payload.businesstype,
         });
         await user.save();
-        return h.response({
-            message: 'Registered!!'
-        }).code(200);
+        return {
+            message: 'Registered!!',
+            code: 200
+        };
     }
-    return h.response({
-        message: existingUser.message
-    }).code(existingUser.code);
+    return {
+        message: existingUser.message,
+        code: existingUser.code
+    }
 }
 
-exports.login = async (request, h) => {
+exports.login = async (request) => {
     const verifiedUser = await verifyCredentials(request.payload.email, request.payload.password);
     console.log(verifiedUser);
     if (typeof verifiedUser.code === 'undefined') {
-        return h.response({
-            message: 'Login Successful!'
-        }).code(200);
+        return {
+            message: 'Login Successful!!',
+            code: 200
+        }
     }
-    return h.response({
-        message: verifiedUser.message
-    }).code(verifiedUser.code);
-}
-
-exports.createAuction =  async (request, h) => {
-    try{
-    const itemPic = request.payload.property_image;
-    console.log(request.payload.property_image_type);
-
-    const date = new Date().toISOString();
-    const type =  request.payload.property_image_type;
-    console.log(type);
-    const fileType = type.split("/");
-
-    const imageName = date+'.'+fileType[1];
-    await uploadPic.handleFileUpload(itemPic,imageName);
-    const auction = new auctions({
-        title: request.payload.title,
-        property_type: request.payload.property_type,
-        address: request.payload.address,
-        description: request.payload.description,
-        min_starting_bid: request.payload.min_starting_bid,
-        bid_value_multiple: request.payload.bid_value_multiple[0],
-        expiry_date: request.payload.expiry_date,
-        image_name: imageName
-    });
-    await auction.save();
-    return h.response({
-        message: 'Success'
-    }).code(200);
-    }catch(e){
-        return h.response({
-            message: 'Error! check all fields'
-        }).code(400);
+    return {
+        message: verifiedUser.message,
+        code: verifiedUser.code
     }
 }
+
+exports.createAuction = async (request) => {
+    try {
+        let seller_id;
+        const itemPic = request.payload.property_image;
+        console.log(request.payload.user_email);
+        users.findOne({ email : request.payload.user_email },(err, user) => {
+            if(err) {
+                throw err;
+            } else {
+                if(user){
+                    seller_id = user.id;
+                }
+            }
+        });
+        const date = new Date().toISOString();
+        const type = request.payload.property_image_type;
+        const fileType = type.split("/");
+
+        const imageName = date + '.' + fileType[1];
+        await uploadPic.handleFileUpload(itemPic, imageName);
+        const auction = new auctions({
+            seller_id: seller_id,
+            title: request.payload.title,
+            property_type: request.payload.property_type,
+            address: request.payload.address,
+            description: request.payload.description,
+            min_starting_bid: request.payload.min_starting_bid,
+            bid_value_multiple: request.payload.bid_value_multiple[0],
+            expiry_date: request.payload.expiry_date,
+            image_name: imageName,
+        });
+        await auction.save();
+        return {
+            message: 'Success',
+            code: 200
+        }
+    } catch (e) {
+        return {
+            message: 'Error! check all fields',
+            code:400
+        }
+    }
+}
+
+
 
 exports.home = async (request, h) => {
     try {
@@ -82,3 +99,4 @@ exports.home = async (request, h) => {
         return h.response(error).code(500);
     }
 }
+

@@ -6,7 +6,8 @@ module.exports = [
         method: 'POST',
         path: '/register',
         handler: async (request, h) => {
-           return controller.register(request, h);
+            const result = await controller.register(request);
+            return h.response({message:result.message}).code(result.code);
     }
 },
 
@@ -14,7 +15,8 @@ module.exports = [
         method: 'POST',
         path: '/login',
         handler: async (request, h) => {
-            return controller.login(request, h);
+            const result = await controller.login(request);
+            return h.response({message:result.message}).code(result.code);
         }
     },
 
@@ -22,7 +24,8 @@ module.exports = [
         method: 'POST',
         path: '/createAuction',
         handler: async (request, h) => {
-            return controller.createAuction(request, h);
+            const result = await controller.createAuction(request);
+            return h.response({message:result.message}).code(result.code);
         }
     },
 

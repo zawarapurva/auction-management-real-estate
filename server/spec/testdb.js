@@ -1,5 +1,7 @@
-var Mongoose = require('mongoose');
+require('dotenv').config()
 
+var Mongoose = require('mongoose');
+console.log(process.env.testdb);
     Mongoose.connect('mongodb://localhost/testDB', {useNewUrlParser: true});
     var testdb = Mongoose.connection;
     

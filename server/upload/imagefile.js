@@ -1,8 +1,6 @@
 const fs = require('fs');
 
 exports.handleFileUpload = (file, imageName) => {
-  console.log(file);
-  
 
   return new Promise((resolve, reject) => {
     fs.writeFile('./auction-management-for-real-estate/server/public/propertyImg/'+imageName , file, err => {

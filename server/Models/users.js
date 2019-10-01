@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var Blob = mongoose.Schema.Types.Blob;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const usersSchema = new Schema({
@@ -12,7 +11,6 @@ const usersSchema = new Schema({
     jwt: {type: String },
     businesstype: {type: String, required: true },
     address : {type: String },
-    // profile: { type: Blob },
     my_auctions: ObjectId,
     my_bids: ObjectId,
 });

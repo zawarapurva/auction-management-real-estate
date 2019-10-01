@@ -1,48 +1,63 @@
-// const testdb = require('./testdb').testdb;
-// const controller = require('./../api/controller');
+const testdb = require('./testdb').testdb;
+const controller = require('./../api/controller');
 
-// const reqRight = {
-//     body: {
-//       email: "sean@gmail.com",
-//       password: "1234"
-//     }
-//   };
-//   const reqWrongPass = {
-//     body: {
-//       email: "sean@gmail.com",
-//       password: "12345"
-//     }
-//   };
-//   const reqWrongEmail = {
-//     body: {
-//       email: "seano@gmail.com",
-//       password: "12345"
-//     }
-//   };
-//   describe("check user login", () => {
-//     beforeAll(async () => {
-//       await testCon.none(
-//         "insert into users (email,password,name) values ('sean@gmail.com','$2a$10$ooAakLZB0d0cIiVZP/216.kZYmvwA.wjgDyZSyr7z8gLexYU3lqRy','sean wick')"
-//       );
-//     });
-  
-//     it("should verify user and return code 200 for login successful", async () => {
-//       const log_code = await login(reqRight, testCon);
-//       expect(log_code.code).toEqual(200);
-//     });
-  
-//     it("should verify user and return code 400 for unauthorized user wrong password", async () => {
-//       const log_code = await login(reqWrongPass, testCon);
-//       expect(log_code.code).toEqual(400);
-//     });
-  
-//     it("should verify user and return code 400 for unauthorized user wrong email", async () => {
-//       const log_code = await login(reqWrongEmail, testCon);
-//       expect(log_code.code).toEqual(400);
-//     });
-  
-//     afterAll(async () => {
-//       await testCon.none("TRUNCATE TABLE users CASCADE");
-//     });
-    
-//   });
+const request1 = {
+    payload: {
+      email: "baymax@gmail.com",
+      password: "123456",
+      username: "baymax",
+      firstname: "bay",
+      lastname: "max",
+      businesstype: "Broker"
+    }
+  };
+
+const request2 = {
+  payload: {
+    email: "baymax@gmail.com",
+    password: "12345678",
+    username: "baymax",
+    firstname: "bay",
+    lastname: "max",
+    businesstype: "Dealer"
+  }
+};
+
+const request3 = {
+  payload: {
+    email: "bay@gmail.com",
+    password: "123456",
+    username: "max",
+    firstname: "bay",
+    lastname: "max",
+    businesstype: "Dealer"
+  }
+};
+
+describe("check user Login", () => {
+
+    beforeAll( async() => {
+      await testdb.createCollection("users");
+      const user1 = await controller.register(request1);
+    });
+
+    it("should be able to login for correct email and password and return code 200 for successful login", async () => {
+        const user = await controller.login(request1);
+        expect(user.code).toEqual(200);
+      });
+
+    it("should give an erorr for incorrect password", async() => {
+        const user = await controller.login(request2);
+        expect(user.code).toEqual(400);
+    });
+
+    it("should give an error if the user does not exists", async() =>{
+      const user = await controller.login(request3);
+      expect(user.code).toEqual(400);
+    });
+
+    afterAll( async() => {
+      await testdb.collection("users").drop();
+    });
+   
+});
