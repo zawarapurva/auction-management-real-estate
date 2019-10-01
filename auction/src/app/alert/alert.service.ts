@@ -40,4 +40,11 @@ export class AlertService {
         // clear by calling subject.next() without parameters
         this.subject.next();
     }
+
+    clearAlert(message) {
+        setTimeout(() => {
+            message.cssClass = '';
+            message = '';
+        }, 1500);
+    }
 }

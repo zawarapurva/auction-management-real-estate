@@ -79,14 +79,14 @@ export class CreateAuctionComponent implements OnInit {
           this.resp = res.message;
           this.alertService.success('Auction successfully created', true);
           this.router.navigate(['/home']);
-          return console.log(res);
+          console.log(res);
         },
         (err) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 400 || err.status === 500) {
               this.error = err.error.message;
               this.alertService.error(this.error);
-              return console.log(err);
+              console.log(err);
             } else {
               return alert('An unexpected error occured');
             }

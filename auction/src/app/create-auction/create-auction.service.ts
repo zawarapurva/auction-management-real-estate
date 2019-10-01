@@ -20,9 +20,9 @@ export class CreateAuctionService {
     formData.append('min_starting_bid', formValues.min_starting_bid);
     formData.append('bid_value_multiple', formValues.bid_value_multiple);
     formData.append('expiry_date', formValues.expiry_date);
-    formData.append('bid_value_multiple', formValues.bid_value_multiple);
     formData.append('property_image', formValues.property_image, formValues.property_image.name);
     formData.append('property_image_type', formValues.property_image_type);
+    formData.append('user_email', localStorage.getItem('email'));
     return this.httpClient.post<any>(this.url, formData);
   }
 }
