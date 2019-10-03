@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    console.log(this.loginForm.value);
     this.loginservice.login(this.loginForm.value).subscribe(
       (res) => {
         localStorage.setItem('token', res.jwt);

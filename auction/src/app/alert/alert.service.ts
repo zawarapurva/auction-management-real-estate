@@ -43,8 +43,7 @@ export class AlertService {
 
     clearAlert(message) {
         setTimeout(() => {
-            message.cssClass = '';
-            message = '';
-        }, 1500);
+            message.cssClass = 'd-none';
+        }, 2000);
     }
 }

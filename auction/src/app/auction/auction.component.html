@@ -2,8 +2,7 @@
     <div class=" auction border rounded flex-container m-2">
         <div class="row mr-1">
             <a class="d-flex justify-content-center col-sm-12 col-lg-3 mt-4">
-                <img src={{auction.image_name}}
-                    class="img" alt="property_image" style="width:250px;height:200px;">
+                <img src={{auction.image_name}} class="img" alt="property_image" style="width:250px;height:200px;">
             </a>
             <div class="row p-2 col-sm-12 col-lg-9 ml-2">
                 <div class="col-sm-12 col-lg-4  mt-4 address">
@@ -31,14 +30,24 @@
                     <h6>Current Bid</h6>
                     <span class="medium border bg-dark text-white rounded p-2">$ {{ auction.max_current_bid }}</span>
                 </div>
-
-                <div class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
-                    <input type="number" class="border rounded" >
-                    <button id="bidbox" type="submit" class=" btn btn-dark ml-2 mr-2">
-                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                        $Bid
-                    </button>
-                </div>
+                <form [formGroup]="bid" (ngSubmit)="onSubmit()"
+                class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
+                        <div class="alert alert-light" role="alert">
+                            Bid should be in multiples of {{ auction.bid_value_multiple }}
+                        </div>
+                        <input type="number" formControlName="bid_value"
+                        class="form-group form-control border rounded"
+                        [ngClass]="{ 'is-invalid': submitted && f.bid_value.errors }">
+                        <div *ngIf="submitted && f.bid_value.errors" class="invalid-feedback">
+                            <div *ngIf="f.bid_value.errors.validBid"> Bid should be multiple of
+                                {{ auction.bid_value_multiple }}</div>
+                        </div>
+                        <button id="bidbox" type="submit" [disabled]="loading"
+                            class="form-group btn btn-dark ml-2 mr-2">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            $Bid
+                        </button> 
+                </form>
             </div>
         </div>
     </div>
