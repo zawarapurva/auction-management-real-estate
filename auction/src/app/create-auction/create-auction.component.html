@@ -1,4 +1,4 @@
-<div style="margin-top: 90px;">
+<div class= "createAuctionBox">
 <app-navbar></app-navbar>
 <div class="jumbotron">
     <div class="flex-box container">
@@ -97,7 +97,7 @@
             </div>
 
             <div class="form-group">
-                <label for="property_image">Add Property image</label><br>
+                <label for="property_image" >Add Property image</label><br>
                 <input type="file" (change)="onFileSelect($event)" formControlName="property_image" id="property_image" name="property_image"
                     class="form-control" [ngClass]="{ 'is-invalid': submitted && f.property_image.errors }" />
                 <div *ngIf="submitted && f.property_image.errors" class="invalid-feedback">

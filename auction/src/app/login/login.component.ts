@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.alertService.clear();
+    this.alertService.clearAlert();
     console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       return;

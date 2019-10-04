@@ -1,3 +1,21 @@
+.navbar {
+    z-index: 3;
+    min-height: 80px;
+}
+
+.navbar-nav {
+    width: 100%
+}
+
+.profile {
+    position: fixed;
+    right: 0;
+    cursor: pointer
+}
+
+.nav-item {
+    cursor: pointer
+}
 
 .dropbtn {
     padding: 16px;
@@ -19,6 +37,7 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     margin-left: -100px;
+    cursor: pointer
 }
 
 .dropdown-content a {

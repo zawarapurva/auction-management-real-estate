@@ -1,12 +1,12 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 @Injectable({
   providedIn: 'root'
 })
 export class CreateAuctionService {
   error: string;
-  url = 'http://localhost:5000/createAuction';
+  // url = 'http://localhost:5000/createAuction';
   constructor(
     private httpClient: HttpClient,
   ) { }
@@ -23,6 +23,6 @@ export class CreateAuctionService {
     formData.append('property_image', formValues.property_image, formValues.property_image.name);
     formData.append('property_image_type', formValues.property_image_type);
     formData.append('user_email', localStorage.getItem('email'));
-    return this.httpClient.post<any>(this.url, formData);
+    return this.httpClient.post<any>(environment.createAuctionurl, formData);
   }
 }

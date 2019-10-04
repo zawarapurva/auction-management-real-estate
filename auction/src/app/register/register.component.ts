@@ -39,19 +39,17 @@ get f() { return this.registerForm.controls; }
 
 onSubmit() {
   this.submitted = true;
-  this.alertService.clear();
+  this.alertService.clearAlert();
   if (this.registerForm.invalid) {
             return;
         }
   this.loading = true;
-  console.log(this.registerForm.value);
   this.registrationService.register(this.registerForm.value)
   .pipe(first())
   .subscribe(
     (res) => {
       this.alertService.success(res.message, true);
       this.router.navigate(['/login']);
-      return console.log(res);
     },
     (err) => {
       this.loading = false;
@@ -59,7 +57,6 @@ onSubmit() {
         if (err.status === 400 || err.status === 500) {
           this.error = err.error.message;
           this.alertService.error(this.error);
-          return console.log(err);
         } else {
           return alert('An unexpected error occured');
         }

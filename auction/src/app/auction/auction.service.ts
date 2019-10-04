@@ -1,6 +1,6 @@
 // import { HttpClient } from '@angular/common/http';
 // import { Injectable } from '@angular/core';
-
+// import { environment } from './../../environments/environment';
 // @Injectable({
 //   providedIn: 'root'
 // })
@@ -13,6 +13,6 @@
 
 //   auction(formData) {
 //     console.log(formData);
-//     return this.httpClient.post<any>(this.url, formData);
+//     return this.httpClient.post<any>(environment.homeurl, formData);
 //   }
 // }

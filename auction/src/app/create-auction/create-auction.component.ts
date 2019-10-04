@@ -12,7 +12,6 @@ import { CreateAuctionService } from './create-auction.service';
   styleUrls: ['./create-auction.component.css']
 })
 export class CreateAuctionComponent implements OnInit {
-  SERVER_URL = 'http://localhost:5000/createAuction';
   createAuctionFormGroup: FormGroup;
   loading = false;
   submitted = false;
@@ -23,7 +22,6 @@ export class CreateAuctionComponent implements OnInit {
   uploadFieldName = 'photos';
   resp: string;
   fileToUpload: File;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,16 +60,14 @@ export class CreateAuctionComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.alertService.clear();
+    this.alertService.clearAlert();
     if (this.createAuctionFormGroup.invalid) {
       console.log(this.createAuctionFormGroup.invalid);
       return;
     }
-    console.log(this.createAuctionFormGroup.value);
     const formValues = this.createAuctionFormGroup.value;
     formValues.property_image = this.fileToUpload;
     formValues.property_image_type = this.fileToUpload.type;
-
     this.createAuctionService.submit(formValues)
       .pipe(first())
       .subscribe(
@@ -79,7 +75,6 @@ export class CreateAuctionComponent implements OnInit {
           this.resp = res.message;
           this.alertService.success('Auction successfully created', true);
           this.router.navigate(['/home']);
-          console.log(res);
         },
         (err) => {
           if (err instanceof HttpErrorResponse) {

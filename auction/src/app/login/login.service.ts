@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -6,12 +7,11 @@ import { Injectable } from '@angular/core';
 })
 export class LoginService {
   error: string;
-  url = 'http://localhost:5000/login';
   constructor(
     private httpClient: HttpClient
   ) { }
 
   login(formData) {
-    return this.httpClient.post<any>(this.url, formData);
+    return this.httpClient.post<any>(environment.loginurl, formData);
   }
 }

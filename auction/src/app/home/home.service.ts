@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,10 +9,9 @@ import { Observable } from 'rxjs';
 
 export class HomeService {
   error: string;
-  url = 'http://localhost:5000/home';
   constructor(private httpClient: HttpClient) { }
 
   getAuctions(): Observable<any> {
-    return this.httpClient.get<any>(this.url );
+    return this.httpClient.get<any>(environment.homeurl);
   }
 }
