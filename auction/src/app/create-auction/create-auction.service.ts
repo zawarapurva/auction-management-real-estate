@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class CreateAuctionService {
     formData.append('expiry_date', formValues.expiry_date);
     formData.append('property_image', formValues.property_image, formValues.property_image.name);
     formData.append('property_image_type', formValues.property_image_type);
-    formData.append('user_email', localStorage.getItem('email'));
+    formData.append('user_id', localStorage.getItem('user_id'));
     return this.httpClient.post<any>(environment.createAuctionurl, formData);
   }
 }

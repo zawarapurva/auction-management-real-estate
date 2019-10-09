@@ -32,7 +32,7 @@ export class CreateAuctionComponent implements OnInit {
 
   ngOnInit() {
     this.createAuctionFormGroup = this.formBuilder.group({
-      title: ['Title', Validators.required],
+      title: ['', Validators.required],
       property_type: [''],
       address: ['', Validators.required],
       description: ['', Validators.required],

@@ -32,12 +32,13 @@
                 </div>
                 <form [formGroup]="bid" (ngSubmit)="onSubmit()"
                 class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
-                        <input type="number" formControlName="bid_value"
-                        class="form-group form-control border rounded" placeholder="Multiple of {{auction.bid_value_multiple}} "
+                        <input type="number" formControlName="bid_value" id="{{auction._id}}"
+                        class="form-group form-control border rounded" placeholder="Multiple of {{auction.bid_value_multiple}}"
                         [ngClass]="{ 'is-invalid': submitted && f.bid_value.errors }">
                         <div *ngIf="submitted && f.bid_value.errors" class="invalid-feedback">
                             <div *ngIf="f.bid_value.errors.validBid"> 
-                                Bid should be multiple of {{ auction.bid_value_multiple }}</div>
+                                Bid should be multiple of {{ auction.bid_value_multiple }} </div>
+                            <div *ngIf="f.bid_value.errors.min">Bid should be greater than the {{auction.min_starting_bid}}</div>
                         </div>
                         <button id="bidbox" type="submit" [disabled]="loading"
                             class="form-group btn btn-dark ml-2 mr-2">

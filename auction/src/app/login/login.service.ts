@@ -12,6 +12,7 @@ export class LoginService {
   ) { }
 
   login(formData) {
+    console.log(formData);
     return this.httpClient.post<any>(environment.loginurl, formData);
   }
 }
