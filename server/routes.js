@@ -16,7 +16,9 @@ module.exports = [
         path: '/login',
         handler: async (request, h) => {
             const result = await controller.login(request);
-            return h.response({message:result.message}).code(result.code);
+            console.log(result);
+            return h.response({message:result.message,
+            id: result.user_id}).code(result.code);
         }
     },
 
@@ -31,20 +33,30 @@ module.exports = [
 
     {
         method: 'GET',
-        path: '/home',
-        handler:  async (request, h) => {
-            return controller.home(request, h);
-        }
-    },
-
-    {
-        method: 'GET',
         path: '/propertyImg/{file*}',
         handler:{
             directory:{
                 path:'./auction-management-for-real-estate/server/public/',
             }
         }
-    }
+    },
 
+
+    {
+        method: 'GET',
+        path: '/home',
+        handler:  async (request, h) => {
+            return controller.getAuctions(request, h);
+        }
+    },
+
+    {
+        method: 'POST',
+        path: '/home',
+        handler:  async (request, h) => {
+            return console.log(request.payload);
+        }
+    },
+
+    
 ]

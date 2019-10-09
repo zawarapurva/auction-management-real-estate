@@ -31,11 +31,12 @@ exports.register = async (request) => {
 
 exports.login = async (request) => {
     const verifiedUser = await verifyCredentials(request.payload.email, request.payload.password);
-    console.log(verifiedUser);
+    console.log(verifiedUser.id);
     if (typeof verifiedUser.code === 'undefined') {
         return {
             message: 'Login Successful!!',
-            code: 200
+            code: 200,
+            user_id: verifiedUser.id
         }
     }
     return {
@@ -48,16 +49,16 @@ exports.createAuction = async (request) => {
     try {
         let seller_id;
         const itemPic = request.payload.property_image;
-        console.log(request.payload.user_email);
-        users.findOne({ email : request.payload.user_email },(err, user) => {
-            if(err) {
-                throw err;
-            } else {
-                if(user){
-                    seller_id = user.id;
-                }
-            }
-        });
+        // console.log(request.payload.user_email);
+        // users.findOne({ email : request.payload.user_email },(err, user) => {
+        //     if(err) {
+        //         throw err;
+        //     } else {
+        //         if(user){
+        //             seller_id = user.id;
+        //         }
+        //     }
+        // });
         const date = new Date().toISOString();
         const type = request.payload.property_image_type;
         const fileType = type.split("/");
@@ -65,7 +66,7 @@ exports.createAuction = async (request) => {
         const imageName = date + '.' + fileType[1];
         await uploadPic.handleFileUpload(itemPic, imageName);
         const auction = new auctions({
-            seller_id: seller_id,
+            seller_id: request.payload.id,
             title: request.payload.title,
             property_type: request.payload.property_type,
             address: request.payload.address,
@@ -89,8 +90,7 @@ exports.createAuction = async (request) => {
 }
 
 
-
-exports.home = async (request, h) => {
+exports.getAuctions = async (request, h) => {
     try {
         var auction = await auctions.find({});
         console.log(auction);
@@ -100,3 +100,6 @@ exports.home = async (request, h) => {
     }
 }
 
+const bid = async (request,h) => {
+    
+}
