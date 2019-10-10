@@ -1,10 +1,9 @@
 'use strict';
 
-const User = require('./Models/users');
+const User = require('../Models/users');
 const bcrypt = require('bcrypt');
 
 const verifyCredentials = async(email, password) => {
-    // let result = false;
     const user = await User.findOne({ 
       $or: [ 
         { email: email }
@@ -17,7 +16,6 @@ const verifyCredentials = async(email, password) => {
         console.log(isValid);
         
           if (isValid) {
-            // result = true;
             return(user);
           }
           else return {

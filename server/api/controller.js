@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
 const users = require('../Models/users');
 const auctions = require('../Models/auctions');
-const isExistingUser = require('../auth').isExistingUser;
-const verifyCredentials = require('../verify').verifyCredentials;
+const buyers = require('../Models/buyers');
+const isExistingUser = require('../helperFunctions/auth').isExistingUser;
+const verifyCredentials = require('../helperFunctions/verify').verifyCredentials;
+const bidValidator = require('../helperFunctions/bidValidator').bidValidator;
 const uploadPic = require('../upload/imagefile');
 
 exports.register = async (request) => {
@@ -47,26 +49,14 @@ exports.login = async (request) => {
 
 exports.createAuction = async (request) => {
     try {
-        let seller_id;
-        const itemPic = request.payload.property_image;
-        // console.log(request.payload.user_email);
-        // users.findOne({ email : request.payload.user_email },(err, user) => {
-        //     if(err) {
-        //         throw err;
-        //     } else {
-        //         if(user){
-        //             seller_id = user.id;
-        //         }
-        //     }
-        // });
         const date = new Date().toISOString();
+        const itemPic = request.payload.property_image;
         const type = request.payload.property_image_type;
         const fileType = type.split("/");
-
         const imageName = date + '.' + fileType[1];
         await uploadPic.handleFileUpload(itemPic, imageName);
         const auction = new auctions({
-            seller_id: request.payload.id,
+            seller_id: request.payload.user_id,
             title: request.payload.title,
             property_type: request.payload.property_type,
             address: request.payload.address,
@@ -84,7 +74,7 @@ exports.createAuction = async (request) => {
     } catch (e) {
         return {
             message: 'Error! check all fields',
-            code:400
+            code: 400
         }
     }
 }
@@ -93,13 +83,40 @@ exports.createAuction = async (request) => {
 exports.getAuctions = async (request, h) => {
     try {
         var auction = await auctions.find({});
-        console.log(auction);
         return h.response(auction).code(200);
     } catch (error) {
         return h.response(error).code(500);
     }
 }
 
-const bid = async (request,h) => {
-    
+exports.bid = async (request) => {
+    try {
+        const valid = await bidValidator(request.payload.bid_value, request.payload.auction_id);
+        if (valid) {
+            const buyer = new buyers({
+                auction_id: request.payload.auction_id,
+                buyer_id: request.payload.buyer_id,
+                bid_value: request.payload.bid_value
+            });
+            await buyer.save();
+            console.log(valid);
+            return {
+                message: 'Bid Successful!!',
+                code: 200
+            }
+        }
+        else {
+            return {
+                message: 'Please Bid higher',
+                code: 400,
+            }
+        }
+    } catch (e) {
+        console.log(e);
+        
+        return {
+            message: 'Please place a Bid value',
+            code: 400
+        }
+    }
 }

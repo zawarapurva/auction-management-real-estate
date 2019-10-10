@@ -1,4 +1,4 @@
-const User = require('./Models/users');
+const User = require('../Models/users');
 
 const isExistingUser = async (email, username) => {
 

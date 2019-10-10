@@ -54,7 +54,9 @@ module.exports = [
         method: 'POST',
         path: '/home',
         handler:  async (request, h) => {
-            return console.log(request.payload);
+            const result = await controller.bid(request);
+            console.log(result);
+            return h.response({message:result.message}).code(result.code);
         }
     },
 
