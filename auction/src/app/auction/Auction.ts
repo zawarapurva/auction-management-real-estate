@@ -1,5 +1,6 @@
 
 export interface Auction {
+    _id;
     title: string;
     property_type: string;
     address: string;

@@ -11,11 +11,7 @@ export class AuctionService {
   ) { }
 
   auction(formValues) {
-    const formData = new FormData();
-    formData.append('id', formValues._id);
-    formData.append('buyer_id', localStorage.getItem('user_id'));
-    formData.append('bid_value', formValues.bid_value);
-    console.log(formData);
-    return this.httpClient.post<any>(environment.homeurl, formData);
+    console.log(formValues);
+    return this.httpClient.post<any>(environment.homeurl, formValues);
   }
 }

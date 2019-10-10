@@ -1,5 +1,4 @@
 import { Auction } from './Auction';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertService } from '../alert/alert.service';
@@ -23,16 +22,15 @@ export class AuctionComponent implements OnInit {
     private fb: FormBuilder,
     private alertService: AlertService,
     private auctionservice: AuctionService,
-    private router: Router,
   ) { }
 
   ngOnInit() {
     this.auction.expiry_date = new Date(this.auction.expiry_date).toDateString();
     this.auction.image_name = 'http://localhost:5000/propertyImg/propertyImg/' + this.auction.image_name;
     this.bid = this.fb.group({
-      bid_value: ['', [Validators.min(this.auction.min_starting_bid), bidValidator(this.auction.bid_value_multiple)]],
-      _id: [''],
-      buyer_id: ['']
+      bid_value: ['', [Validators.min(this.auction.max_current_bid + 1), bidValidator(this.auction.bid_value_multiple)]],
+      buyer_id: [localStorage.getItem('user_id')],
+      auction_id: [this.auction._id]
     });
   }
 
@@ -41,15 +39,15 @@ export class AuctionComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.alertService.clearAlert();
-    console.log(this.bid.value);
     if (this.bid.invalid) {
       return;
     }
     this.loading = true;
-    this.auctionservice.auction(this.bid.value).subscribe(
+    const formValues = this.bid.value;
+    this.auctionservice.auction(formValues).subscribe(
       (res) => {
         this.alertService.success(res.message, true);
-        return console.log(res);
+        return this.auction.max_current_bid = formValues.bid_value;
       },
       (err) => {
         this.loading = false;

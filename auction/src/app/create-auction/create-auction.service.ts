@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 })
 export class CreateAuctionService {
   error: string;
-  // url = 'http://localhost:5000/createAuction';
   constructor(
     private httpClient: HttpClient,
   ) { }

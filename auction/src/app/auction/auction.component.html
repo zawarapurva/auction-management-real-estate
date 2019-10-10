@@ -38,11 +38,11 @@
                         <div *ngIf="submitted && f.bid_value.errors" class="invalid-feedback">
                             <div *ngIf="f.bid_value.errors.validBid"> 
                                 Bid should be multiple of {{ auction.bid_value_multiple }} </div>
-                            <div *ngIf="f.bid_value.errors.min">Bid should be greater than the {{auction.min_starting_bid}}</div>
+                            <div *ngIf="f.bid_value.errors.min">Bid should be greater than the {{auction.max_current_bid}}</div>
                         </div>
-                        <button id="bidbox" type="submit" [disabled]="loading"
-                            class="form-group btn btn-dark ml-2 mr-2">
-                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        <button id="bidbox" type="submit"
+                            class="form-group btn btn-dark ml-2 mr-2" routerLink="/home">
+                            <span *ngIf="loading" class="mr-1"></span>
                             $Bid
                         </button> 
                 </form>
