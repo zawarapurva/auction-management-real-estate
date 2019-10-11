@@ -1,3 +1,4 @@
+import { ViewBidsPopupComponent } from './view-bids-popup/view-bids-popup.component';
 import { LoginGuard } from './auth/guard/login.guard';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -9,7 +10,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-
+import { MyAuctionsComponent } from './my-auctions/my-auctions.component';
 
 const routes: Routes = [
   { path: '' , redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'createAuction' , canActivate: [AuthGuard], component: CreateAuctionComponent },
   { path: 'profile' , canActivate: [AuthGuard],  component: ProfileComponent },
   { path: 'auction', canActivate: [AuthGuard], component: AuctionComponent},
+  { path: 'myAuctions', canActivate: [AuthGuard], component: MyAuctionsComponent},
+  { path: 'viewBids', canActivate: [AuthGuard], component: ViewBidsPopupComponent},
   { path: '**', canActivate: [AuthGuard], component: PageNotFoundComponent}
 ];
 
@@ -34,5 +37,7 @@ export const routingComponents = [
   CreateAuctionComponent,
   ProfileComponent,
   AuctionComponent,
-  PageNotFoundComponent
+  PageNotFoundComponent,
+  MyAuctionsComponent,
+  ViewBidsPopupComponent
  ];

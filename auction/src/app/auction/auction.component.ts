@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Auction } from './Auction';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
@@ -18,13 +19,18 @@ export class AuctionComponent implements OnInit {
   loading = false;
   submitted = false;
   error: any;
+  myAuction: boolean;
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
     private auctionservice: AuctionService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem('user_id') === this.auction.seller_id) {
+      this.myAuction = true;
+    } else { this.myAuction = false; }
     this.auction.expiry_date = new Date(this.auction.expiry_date).toDateString();
     this.auction.image_name = 'http://localhost:5000/propertyImg/propertyImg/' + this.auction.image_name;
     this.bid = this.fb.group({
@@ -46,6 +52,7 @@ export class AuctionComponent implements OnInit {
     const formValues = this.bid.value;
     this.auctionservice.auction(formValues).subscribe(
       (res) => {
+        console.log(res);
         this.alertService.success(res.message, true);
         return this.auction.max_current_bid = formValues.bid_value;
       },
@@ -55,11 +62,15 @@ export class AuctionComponent implements OnInit {
           if (err.status === 400 || err.status === 500) {
             this.error = err.error.message;
             this.alertService.error(this.error);
-            return console.log(err);
+            return this.auction.max_current_bid = err.error.currentMax;
           }
         }
         this.alertService.error(err);
       });
+  }
+
+  viewBids() {
+    this.router.navigate(['/viewBids']);
   }
 
 }

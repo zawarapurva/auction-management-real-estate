@@ -1,15 +1,18 @@
+import { MyAuctionsService } from './my-auctions/my-auctions.service';
 import { AuctionService } from './auction/auction.service';
-import { AuthGuard } from './auth/guard/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { AlertService } from './alert/alert.service';
 import { LoginService } from './login/login.service';
 import { RegistrationService } from './register/registration.service';
 import { CreateAuctionService } from './create-auction/create-auction.service';
+import { HomeService } from './home/home.service';
+
+import { LoginGuard } from './auth/guard/login.guard';
+import { AuthGuard } from './auth/guard/auth.guard';
+
 import { NavbarComponent } from './navbar/navbar.component';
 import { AlertComponent } from './alert/alert.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginGuard } from './auth/guard/login.guard';
-import { HomeService } from './home/home.service';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -42,7 +45,8 @@ import { AppComponent } from './app.component';
     AuthGuard,
     LoginGuard,
     HomeService,
-    AuctionService
+    AuctionService,
+    MyAuctionsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,13 @@
+<app-my-auctions></app-my-auctions>
+<div class="overlay">
+    <div class="dialog row col-sm-12 col-lg-12">
+        <div class="username col-sm-4 col-lg-4"> username </div>
+        <div class="bidvalue col-sm-4 col-lg-4 mb-0"> bidvalue </div>
+        <div class="col-sm-4 col-lg-4">
+            <button id="bidbox" type="submit" class="btn btn-dark ml-2 mr-2">
+                <span *ngIf="loading" class="mr-1"></span>
+                Set Winner
+            </button>
+        </div>
+    </div>
+</div>
