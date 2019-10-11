@@ -55,8 +55,17 @@ module.exports = [
         path: '/home',
         handler:  async (request, h) => {
             const result = await controller.bid(request);
-            console.log(result);
-            return h.response({message:result.message}).code(result.code);
+            return h.response({
+                currentMax: result.currentMax,
+                message:result.message}).code(result.code);
+        }
+    },
+
+    {
+        method: 'GET',
+        path: '/myAuctions',
+        handler:  async (request, h) => {
+            return controller.getMyAuctions(request, h);
         }
     },
 

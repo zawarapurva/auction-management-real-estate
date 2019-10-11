@@ -62,7 +62,7 @@ exports.createAuction = async (request) => {
             address: request.payload.address,
             description: request.payload.description,
             min_starting_bid: request.payload.min_starting_bid,
-            bid_value_multiple: request.payload.bid_value_multiple[0],
+            bid_value_multiple: request.payload.bid_value_multiple,
             expiry_date: request.payload.expiry_date,
             image_name: imageName,
         });
@@ -91,32 +91,42 @@ exports.getAuctions = async (request, h) => {
 
 exports.bid = async (request) => {
     try {
-        const valid = await bidValidator(request.payload.bid_value, request.payload.auction_id);
-        if (valid) {
+        const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id);
+        if (!currentMax) {
             const buyer = new buyers({
                 auction_id: request.payload.auction_id,
                 buyer_id: request.payload.buyer_id,
                 bid_value: request.payload.bid_value
             });
             await buyer.save();
-            console.log(valid);
             return {
                 message: 'Bid Successful!!',
                 code: 200
             }
         }
+        else if (request.payload.bid_value === "") {
+            return {
+                message: 'Please place a Bid value',
+                code: 400
+            }
+        }
         else {
             return {
+                currentMax: currentMax,
                 message: 'Please Bid higher',
                 code: 400,
             }
         }
     } catch (e) {
-        console.log(e);
-        
-        return {
-            message: 'Please place a Bid value',
-            code: 400
-        }
+        return e;
+    }
+}
+
+exports.getMyAuctions = async (request, h) => {
+    try {
+        var auction = await auctions.find({ seller_id: request.query.user_id });
+        return h.response(auction).code(200);
+    } catch (error) {
+        return h.response(error).code(500);
     }
 }
