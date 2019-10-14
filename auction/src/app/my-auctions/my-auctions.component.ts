@@ -21,7 +21,7 @@ export class MyAuctionsComponent implements OnInit {
         return this.auctions = res;
       },
       (err) => {
-        console.log(err.error.message);
+        return this.alertService.error(err.error.message);
       }
     );
   }

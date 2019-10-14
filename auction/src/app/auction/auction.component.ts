@@ -6,6 +6,7 @@ import { AlertService } from '../alert/alert.service';
 import { AuctionService } from './auction.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { bidValidator } from '../validators/bid.validator';
+import { ViewBids } from './ViewBids';
 
 @Component({
   selector: 'app-auction',
@@ -15,6 +16,7 @@ import { bidValidator } from '../validators/bid.validator';
 
 export class AuctionComponent implements OnInit {
   @Input() auction: Auction;
+  public viewBids = [];
   bid: FormGroup;
   loading = false;
   submitted = false;
@@ -69,7 +71,11 @@ export class AuctionComponent implements OnInit {
       });
   }
 
-  viewBids() {
+  view() {
+    this.alertService.clearAlert();
+    if (this.bid.invalid) {
+      return;
+    }
     this.router.navigate(['/viewBids']);
   }
 

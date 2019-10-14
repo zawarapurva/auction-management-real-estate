@@ -12,8 +12,6 @@
   
   .dialog {
     background-color: white;
-    height: 60%;
-    width: 50%;
     display: flex;
     padding: 8px;
   }
