@@ -6,6 +6,8 @@ const isExistingUser = require('../helperFunctions/auth').isExistingUser;
 const verifyCredentials = require('../helperFunctions/verify').verifyCredentials;
 const bidValidator = require('../helperFunctions/bidValidator').bidValidator;
 const uploadPic = require('../upload/imagefile');
+var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 
 exports.register = async (request) => {
     const password = await bcrypt.hash(request.payload.password, +10);
@@ -33,7 +35,6 @@ exports.register = async (request) => {
 
 exports.login = async (request) => {
     const verifiedUser = await verifyCredentials(request.payload.email, request.payload.password);
-    console.log(verifiedUser.id);
     if (typeof verifiedUser.code === 'undefined') {
         return {
             message: 'Login Successful!!',
@@ -91,14 +92,8 @@ exports.getAuctions = async (request, h) => {
 
 exports.bid = async (request) => {
     try {
-        const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id);
+        const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id, request.payload.buyer_id );
         if (!currentMax) {
-            const buyer = new buyers({
-                auction_id: request.payload.auction_id,
-                buyer_id: request.payload.buyer_id,
-                bid_value: request.payload.bid_value
-            });
-            await buyer.save();
             return {
                 message: 'Bid Successful!!',
                 code: 200
@@ -118,6 +113,7 @@ exports.bid = async (request) => {
             }
         }
     } catch (e) {
+        console.log(e);
         return e;
     }
 }
@@ -128,5 +124,32 @@ exports.getMyAuctions = async (request, h) => {
         return h.response(auction).code(200);
     } catch (error) {
         return h.response(error).code(500);
+    }
+}
+
+exports.getViewBids = async (request, h) => {
+    try{
+        var buyer = await buyers.find({ auction_id: request.query.auction_id}, {bid_value: 1, buyer_id: 1, _id: 0}).lean();
+        
+        // for(let i =0 ;i<buyer.length;i++)
+        // {
+        //     console.log(buyer[i].bid_value);
+            
+        // }
+        let a =[];
+        for(let i =0 ;i<buyer.length;i++)
+        {
+            console.log(buyer[i].buyer_id);
+            var username = await users.find({ _id : buyer[i].buyer_id} , { username:1, _id: 0});
+            console.log(username);
+            a[i] = {
+                bidValue: buyer[i].bid_value, 
+                username: username[0].username
+            }
+        }
+        return h.response(a).code(200);
+    } catch(e) {
+        console.log(e);
+        return h.response(e).code(500);
     }
 }

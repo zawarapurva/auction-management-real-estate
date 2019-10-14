@@ -9,12 +9,9 @@ const verifyCredentials = async(email, password) => {
         { email: email }
       ]
     }); 
-    console.log(user);
     if (user) {
       
         const isValid = await bcrypt.compare(password, user.password);
-        console.log(isValid);
-        
           if (isValid) {
             return(user);
           }

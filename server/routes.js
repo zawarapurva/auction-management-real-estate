@@ -69,5 +69,13 @@ module.exports = [
         }
     },
 
+    {
+        method: 'GET',
+        path: '/viewBids',
+        handler:  async (request, h) => {
+            return controller.getViewBids(request, h);
+        }
+    },
+
     
 ]
