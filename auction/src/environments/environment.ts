@@ -11,7 +11,8 @@ export const environment = {
   profileurl: 'http://localhost:5000/profile',
   myAuctionurl: 'http://localhost:5000/myAuctions',
   homeurl: 'http://localhost:5000/home',
-  viewBids: 'http://localhost:5000/viewBids'
+  viewBids: 'http://localhost:5000/viewBids',
+  myBids: 'http://localhost:5000/myBids'
 };
 
 /*

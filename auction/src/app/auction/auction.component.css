@@ -2,6 +2,7 @@
 .auction {
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3);
   margin-top: 30px;
+  z-index: 3;
 }
 
 .img {
@@ -19,4 +20,15 @@
 
 .auctionBox {
   margin-top: 20px;
+}
+.overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
 }

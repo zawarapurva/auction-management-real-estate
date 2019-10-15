@@ -1,12 +1,11 @@
 import { Router } from '@angular/router';
-import { Auction } from './Auction';
+import { Auction } from '../Modals/Auction';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertService } from '../alert/alert.service';
 import { AuctionService } from './auction.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { bidValidator } from '../validators/bid.validator';
-import { ViewBids } from './ViewBids';
 
 @Component({
   selector: 'app-auction',
@@ -22,6 +21,7 @@ export class AuctionComponent implements OnInit {
   submitted = false;
   error: any;
   myAuction: boolean;
+  auctionViewBid: string;
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
@@ -40,6 +40,7 @@ export class AuctionComponent implements OnInit {
       buyer_id: [localStorage.getItem('user_id')],
       auction_id: [this.auction._id]
     });
+    this.auctionViewBid = this.auction._id;
   }
 
   get f() { return this.bid.controls; }
@@ -78,5 +79,4 @@ export class AuctionComponent implements OnInit {
     }
     this.router.navigate(['/viewBids']);
   }
-
 }

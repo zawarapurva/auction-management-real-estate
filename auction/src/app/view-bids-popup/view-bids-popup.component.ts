@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from './../alert/alert.service';
-import { Auction } from './../auction/Auction';
+import { Auction } from '../Modals/Auction';
 import { Component, OnInit, Input, AfterViewInit, OnDestroy, Type } from '@angular/core';
-import { ViewBids } from '../auction/ViewBids';
+import { ViewBids } from '../Modals/ViewBids';
 import { ViewBidsPopupService } from './view-bids-popup.service';
 
 @Component({
@@ -11,8 +11,8 @@ import { ViewBidsPopupService } from './view-bids-popup.service';
   styleUrls: ['./view-bids-popup.component.css']
 })
 export class ViewBidsPopupComponent implements OnInit {
-  @Input() viewBid: ViewBids;
-  @Input() auction: Auction;
+  @Input() viewBids: ViewBids;
+  @Input() auctionViewBid: string;
   error: string;
   constructor(
     private viewBidsPopupService: ViewBidsPopupService,
@@ -20,11 +20,12 @@ export class ViewBidsPopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.auction);
-    const formValues = this.auction._id;
+    console.log(this.auctionViewBid);
+    const formValues = this.auctionViewBid;
     this.viewBidsPopupService.getViewBids(formValues).subscribe(
       (res) => {
         console.log(res);
+        const bids = res;
         return res;
       },
       (err) => {

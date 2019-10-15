@@ -1,3 +1,4 @@
+import { ProfileService } from './profile/profile.service';
 import { MyAuctionsService } from './my-auctions/my-auctions.service';
 import { AuctionService } from './auction/auction.service';
 import { AuthService } from './auth/auth.service';
@@ -46,7 +47,8 @@ import { AppComponent } from './app.component';
     LoginGuard,
     HomeService,
     AuctionService,
-    MyAuctionsService
+    MyAuctionsService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

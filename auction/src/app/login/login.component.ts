@@ -39,27 +39,23 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.alertService.clearAlert();
-    console.log(this.loginForm.value);
     if (this.loginForm.invalid) {
       return;
     }
     this.loading = true;
     this.loginservice.login(this.loginForm.value).subscribe(
       (res) => {
-        console.log(res);
         localStorage.setItem('user_id', res.id);
         localStorage.setItem('email', this.loginForm.value.email);
-        this.alertService.success(res.message, true);
         this.router.navigate([this.returnUrl]);
-        return console.log(res);
+        return this.alertService.success(res.message, true);
       },
       (err) => {
         this.loading = false;
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
             this.error = err.error.message;
-            this.alertService.error(this.error);
-            return console.log(err);
+            return this.alertService.error(this.error);
           } else {
             return alert('An unexpected error occured');
           }

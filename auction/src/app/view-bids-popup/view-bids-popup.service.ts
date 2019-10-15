@@ -11,7 +11,7 @@ export class ViewBidsPopupService {
   error: string;
   constructor(private httpClient: HttpClient) { }
 
-  getViewBids(formValues): Observable<any> {
+  getViewBids(formValues) {
     let params = new HttpParams();
     params = params.append('auction_id', formValues);
     return this.httpClient.get<any>(environment.viewBids, {params} );

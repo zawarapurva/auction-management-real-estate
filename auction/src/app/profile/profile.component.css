@@ -8,3 +8,8 @@ img {
 .profile {
   margin-top: 50px;
 }
+
+.nav-item {
+  cursor: pointer;
+  color: white;
+}
