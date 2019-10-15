@@ -16,7 +16,6 @@ module.exports = [
         path: '/login',
         handler: async (request, h) => {
             const result = await controller.login(request);
-            console.log(result);
             return h.response({message:result.message,
             id: result.user_id}).code(result.code);
         }
@@ -76,6 +75,23 @@ module.exports = [
             return controller.getViewBids(request, h);
         }
     },
+
+    {
+        method: 'GET',
+        path: '/profile',
+        handler:  async (request, h) => {
+            return controller.getProfile(request, h);
+        }
+    },
+
+    {
+        method: 'GET',
+        path: '/myBids',
+        handler:  async (request, h) => {
+            return controller.getMyBids(request, h);
+        }
+    },
+
 
     
 ]

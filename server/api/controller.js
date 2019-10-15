@@ -130,26 +130,45 @@ exports.getMyAuctions = async (request, h) => {
 exports.getViewBids = async (request, h) => {
     try{
         var buyer = await buyers.find({ auction_id: request.query.auction_id}, {bid_value: 1, buyer_id: 1, _id: 0}).lean();
-        
-        // for(let i =0 ;i<buyer.length;i++)
-        // {
-        //     console.log(buyer[i].bid_value);
-            
-        // }
         let a =[];
-        for(let i =0 ;i<buyer.length;i++)
+        for(let i = 0; i<buyer.length; i++)
         {
-            console.log(buyer[i].buyer_id);
             var username = await users.find({ _id : buyer[i].buyer_id} , { username:1, _id: 0});
-            console.log(username);
             a[i] = {
-                bidValue: buyer[i].bid_value, 
+                bidValue: buyer[i].bid_value,
                 username: username[0].username
             }
         }
+        console.log(a.length);
         return h.response(a).code(200);
     } catch(e) {
-        console.log(e);
         return h.response(e).code(500);
+    }
+}
+
+exports.getProfile = async (request, h) => {
+    try {
+        console.log(request.query.user_id);
+        var user = await users.find({ _id: request.query.user_id }).lean();
+        console.log(user[0]);
+        return h.response(user[0]).code(200);
+    } catch (error) {
+        return h.response(error).code(500);
+    }
+}
+
+exports.getMyBids = async (request, h) => {
+    try {
+        var buyer = await buyers.find({ buyer_id: request.query.user_id }, 
+            {auction_id:1, _id:0}).lean();
+            let a =[];
+            for(let i = 0; i<buyer.length; i++){
+                a[i] = buyer[i].auction_id
+                
+            }
+            var auction = await auctions.find({ _id : { $in: a } }).lean();
+        return h.response(auction).code(200);
+    } catch (error) {
+        return h.response(error).code(500);
     }
 }
