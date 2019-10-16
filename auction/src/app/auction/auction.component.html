@@ -31,12 +31,13 @@
                     <span class="medium border bg-dark text-white rounded p-2">$ {{ auction.max_current_bid }}</span>
                 </div>
                 <div *ngIf="myAuction, else bidButton" class=" d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
-                    <button id="bidbox" type="submit" class="btn btn-dark ml-2 mr-2 " (click)="view()">
+                    <button id="bidbox" type="submit" class="btn btn-dark ml-2 mr-2 " (click)="viewAllBids()">
                         <span *ngIf="loading" class="mr-1"></span>
                         View Bids
                     </button>
-                    <!-- <app-view-bids-popup [auctionViewBid] = "auctionViewBid"></app-view-bids-popup> -->
-                    <!-- *ngFor = "let viewBid of viewBids" [viewBid] = "viewBid" -->
+                    <div *ngIf="toggle">
+                            <app-view-bids-popup ></app-view-bids-popup>
+                    </div>
                 </div>
                 <ng-template #bidButton>
                     <form [formGroup]="bid" (ngSubmit)="onSubmit()"

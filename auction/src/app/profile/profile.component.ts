@@ -32,8 +32,7 @@ export class ProfileComponent implements OnInit {
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
-            this.error = err.error.message;
-            return  this.alertService.error(this.error);
+            return  this.alertService.error(err.error.message);
           }
         }
         this.alertService.error(err);
@@ -47,9 +46,13 @@ export class ProfileComponent implements OnInit {
           return this.auctions = res;
         },
         (err) => {
-          return this.alertService.error(err.error.message);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 400 || err.status === 500) {
+              this.error = err.error;
+              return  this.alertService.error(this.error);
         }
-      );
+      }
+    });
     }
     this.toggle = ! this.toggle;
   }

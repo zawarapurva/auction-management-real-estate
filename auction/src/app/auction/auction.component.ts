@@ -15,13 +15,13 @@ import { bidValidator } from '../validators/bid.validator';
 
 export class AuctionComponent implements OnInit {
   @Input() auction: Auction;
-  public viewBids = [];
   bid: FormGroup;
   loading = false;
   submitted = false;
   error: any;
   myAuction: boolean;
   auctionViewBid: string;
+  toggle: boolean;
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
@@ -30,6 +30,7 @@ export class AuctionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.toggle = false;
     if (localStorage.getItem('user_id') === this.auction.seller_id) {
       this.myAuction = true;
     } else { this.myAuction = false; }
@@ -72,11 +73,14 @@ export class AuctionComponent implements OnInit {
       });
   }
 
-  view() {
+  viewAllBids() {
     this.alertService.clearAlert();
-    if (this.bid.invalid) {
-      return;
+    if (!this.toggle) {
+      if (this.bid.invalid) {
+        return;
+      }
+      this.router.navigate(['/viewBids'], { queryParams: { auction_id: this.auctionViewBid } });
     }
-    this.router.navigate(['/viewBids']);
+    this.toggle = ! this.toggle;
   }
 }

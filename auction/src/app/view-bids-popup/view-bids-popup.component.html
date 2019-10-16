@@ -1,12 +1,30 @@
 <div class="overlay">
-    <div class="viewBid dialog row col-12">
-        <div class="username col-4"> {{ bid.username }} </div>
-        <div class="bidvalue col-4 mb-0"> bidvalue </div>
-        <div class="col-4">
-            <button id="bidbox" type="submit" class="btn btn-dark ml-2 mr-2">
-                <span *ngIf="loading" class="mr-1"></span>
-                Set Winner
-            </button>
+    <div *ngIf="!hideBids" class="viewBid dialog row">
+        <div class="col-12">
+            <div class="title col-4"> Username </div>
+            <div class="title col-4"> Bid Value </div>
+            <div class="title col-4">
+                <input name="action bg-dark close" type="submit" value="X" onclick="window.history.back();" />
+            </div>
+        </div>
+        <div class="col-12" *ngFor="let viewBid of viewBids">
+            <div class="rowData col-4"> {{ viewBid.username }} </div>
+            <div class="rowData col-4">{{ viewBid.bidValue }} </div>
+            <div class="rowData col-4">
+                <button id="bidbox" type="submit" class="btn btn-dark ml-2 mr-2" value="{{ viewBid.username }}"
+                    (click)="setWinner($event)">
+                    <span *ngIf="loading" class="mr-1"  [routerLink]="['/winner']"></span>
+                    Set Winner
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="hideBids">
+        <div class="dialog">
+            <div class="title col-4">
+                <input name="action bg-dark close" type="submit" value="X" onclick="window.history.back();" />
+            </div>
+            Winner is {{ winner }}
         </div>
     </div>
 </div>
