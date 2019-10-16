@@ -92,6 +92,13 @@ module.exports = [
         }
     },
 
-
+    {
+        method: 'POST',
+        path: '/winner',
+        handler:  async (request, h) => {
+            const result = await controller.setWinner(request);
+            return h.response(result);
+        }
+    },
     
 ]

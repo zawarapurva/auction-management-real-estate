@@ -10,41 +10,50 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 
 exports.register = async (request) => {
-    const password = await bcrypt.hash(request.payload.password, +10);
-    const existingUser = await isExistingUser(request.payload.email, request.payload.username);
-    if (!existingUser) {
-        const user = new users({
-            firstname: request.payload.firstname,
-            lastname: request.payload.lastname,
-            username: request.payload.username,
-            password: password,
-            email: request.payload.email,
-            businesstype: request.payload.businesstype,
-        });
-        await user.save();
+    try {
+        const password = await bcrypt.hash(request.payload.password, +10);
+        const existingUser = await isExistingUser(request.payload.email, request.payload.username);
+        if (!existingUser) {
+            const user = new users({
+
+                firstname: request.payload.firstname,
+                lastname: request.payload.lastname,
+                username: request.payload.username,
+                password: password,
+                email: request.payload.email,
+                businesstype: request.payload.businesstype,
+            });
+            await user.save();
+            return {
+                message: 'Registered!!',
+                code: 200
+            };
+        }
         return {
-            message: 'Registered!!',
-            code: 200
-        };
-    }
-    return {
-        message: existingUser.message,
-        code: existingUser.code
+            message: existingUser.message,
+            code: existingUser.code
+        }
+    } catch (e) {
+        console.log(e);
     }
 }
 
 exports.login = async (request) => {
-    const verifiedUser = await verifyCredentials(request.payload.email, request.payload.password);
-    if (typeof verifiedUser.code === 'undefined') {
-        return {
-            message: 'Login Successful!!',
-            code: 200,
-            user_id: verifiedUser.id
+    try {
+        const verifiedUser = await verifyCredentials(request.payload.email, request.payload.password);
+        if (typeof verifiedUser.code === 'undefined') {
+            return {
+                message: 'Login Successful!!',
+                code: 200,
+                user_id: verifiedUser.id
+            }
         }
-    }
-    return {
-        message: verifiedUser.message,
-        code: verifiedUser.code
+        return {
+            message: verifiedUser.message,
+            code: verifiedUser.code
+        }
+    } catch (e) {
+        console.log(e);
     }
 }
 
@@ -66,6 +75,7 @@ exports.createAuction = async (request) => {
             bid_value_multiple: request.payload.bid_value_multiple,
             expiry_date: request.payload.expiry_date,
             image_name: imageName,
+            winner: null
         });
         await auction.save();
         return {
@@ -92,7 +102,7 @@ exports.getAuctions = async (request, h) => {
 
 exports.bid = async (request) => {
     try {
-        const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id, request.payload.buyer_id );
+        const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id, request.payload.buyer_id);
         if (!currentMax) {
             return {
                 message: 'Bid Successful!!',
@@ -113,7 +123,6 @@ exports.bid = async (request) => {
             }
         }
     } catch (e) {
-        console.log(e);
         return e;
     }
 }
@@ -128,29 +137,31 @@ exports.getMyAuctions = async (request, h) => {
 }
 
 exports.getViewBids = async (request, h) => {
-    try{
-        var buyer = await buyers.find({ auction_id: request.query.auction_id}, {bid_value: 1, buyer_id: 1, _id: 0}).lean();
-        let a =[];
-        for(let i = 0; i<buyer.length; i++)
-        {
-            var username = await users.find({ _id : buyer[i].buyer_id} , { username:1, _id: 0});
-            a[i] = {
-                bidValue: buyer[i].bid_value,
-                username: username[0].username
+    try {
+        var auction = await auctions.findOne({ _id: request.query.auction_id }).lean();
+        if (auction.winner === "null") {
+            var buyer = await buyers.find({ auction_id: request.query.auction_id }, { bid_value: 1, buyer_id: 1, winner: 1, _id: 0 }).lean();
+            let a = [];
+            for (let i = 0; i < buyer.length; i++) {
+                var username = await users.find({ _id: buyer[i].buyer_id }, { username: 1, _id: 0 });
+                a[i] = {
+                    bidValue: buyer[i].bid_value,
+                    username: username[0].username
+                }
             }
+            return h.response(a).code(200);
         }
-        console.log(a.length);
-        return h.response(a).code(200);
-    } catch(e) {
+        else {
+            return h.response(auction.winner).code(200);
+        }
+    } catch (e) {
         return h.response(e).code(500);
     }
 }
 
 exports.getProfile = async (request, h) => {
     try {
-        console.log(request.query.user_id);
-        var user = await users.find({ _id: request.query.user_id }).lean();
-        console.log(user[0]);
+        var user = await users.find({ _id: request.query.user_id }, { password: 0 }).lean();
         return h.response(user[0]).code(200);
     } catch (error) {
         return h.response(error).code(500);
@@ -159,16 +170,37 @@ exports.getProfile = async (request, h) => {
 
 exports.getMyBids = async (request, h) => {
     try {
-        var buyer = await buyers.find({ buyer_id: request.query.user_id }, 
-            {auction_id:1, _id:0}).lean();
-            let a =[];
-            for(let i = 0; i<buyer.length; i++){
-                a[i] = buyer[i].auction_id
-                
-            }
-            var auction = await auctions.find({ _id : { $in: a } }).lean();
-        return h.response(auction).code(200);
+        var buyer = await buyers.find({ buyer_id: request.query.user_id },
+            { auction_id: 1, _id: 0 }).lean();
+        let a = [];
+        for (let i = 0; i < buyer.length; i++) {
+            a[i] = buyer[i].auction_id
+        }
+        var auction = await auctions.find({ _id: { $in: a } }).lean();
+        console.log(auction[0]);
+        if (auction[0] === undefined) {
+            return h.response("No bids to show").code(400)
+        } else {
+            return h.response(auction).code(200)
+        };
     } catch (error) {
         return h.response(error).code(500);
+    }
+}
+
+exports.setWinner = async (request) => {
+    try {
+        const auction = await auctions.findOneAndUpdate(
+            { _id: request.payload.auction_id },
+            { $set: { winner: request.payload.username } },
+            { upsert: true, new: true }).lean();
+        return {
+            winner: auction.winner,
+            message: 'Winner Set',
+            code: 200
+        }
+    } catch (error) {
+        console.log(error);
+        return error;
     }
 }
