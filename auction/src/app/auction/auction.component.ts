@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { Auction } from '../Modals/Auction';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
@@ -21,16 +20,14 @@ export class AuctionComponent implements OnInit {
   error: any;
   myAuction: boolean;
   auctionViewBid: string;
-  toggle: boolean;
+  isShow: boolean;
   constructor(
     private fb: FormBuilder,
     private alertService: AlertService,
     private auctionservice: AuctionService,
-    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.toggle = false;
     if (localStorage.getItem('user_id') === this.auction.seller_id) {
       this.myAuction = true;
     } else { this.myAuction = false; }
@@ -75,12 +72,6 @@ export class AuctionComponent implements OnInit {
 
   viewAllBids() {
     this.alertService.clearAlert();
-    if (!this.toggle) {
-      if (this.bid.invalid) {
-        return;
-      }
-      this.router.navigate(['/viewBids'], { queryParams: { auction_id: this.auctionViewBid } });
-    }
-    this.toggle = ! this.toggle;
+    this.isShow = !this.isShow;
   }
 }

@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'login' , canActivate: [LoginGuard], component: LoginComponent },
   { path: 'register' , canActivate: [LoginGuard], component: RegisterComponent },
   { path: 'home' , canActivate: [AuthGuard], component: HomeComponent },
+  { path: 'home/:propery_type' , canActivate: [AuthGuard], component: HomeComponent },
   { path: 'createAuction' , canActivate: [AuthGuard], component: CreateAuctionComponent },
   { path: 'profile' , canActivate: [AuthGuard],  component: ProfileComponent },
   { path: 'auction', canActivate: [AuthGuard], component: AuctionComponent},

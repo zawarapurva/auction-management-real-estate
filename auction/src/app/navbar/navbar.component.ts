@@ -1,4 +1,7 @@
-import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from './../alert/alert.service';
+import { SearchService } from './search.service';
+import { Router, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
@@ -8,7 +11,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  public auctions = [];
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -17,6 +20,11 @@ export class NavbarComponent implements OnInit {
     return this.auth.isLoggedIn;
   }
   ngOnInit() {
+  }
+
+  search(event) {
+    console.log(event.target.text);
+    return this.router.navigate(['/home'], { queryParams: { property_type: event.target.text } });
   }
 
   logout() {

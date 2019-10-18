@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from './../alert/alert.service';
-import { Component, OnInit, Input, AfterViewInit, OnDestroy, Type } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ViewBidsPopupService } from './view-bids-popup.service';
 
 @Component({
@@ -9,21 +9,27 @@ import { ViewBidsPopupService } from './view-bids-popup.service';
   styleUrls: ['./view-bids-popup.component.css']
 })
 export class ViewBidsPopupComponent implements OnInit {
+  message: any;
   public viewBids = [];
+  @Input() auctionViewBid: any ;
+  @Input() isShow: any ;
   error: string;
   hideBids: boolean;
   winner: string;
+  noBids: boolean;
   constructor(
     private viewBidsPopupService: ViewBidsPopupService,
     private alertService: AlertService
   ) { }
 
   ngOnInit() {
+    this.isShow = false;
     this.hideBids = false;
-    this.viewBidsPopupService.getViewBids().subscribe(
+    this.noBids = false;
+    this.viewBidsPopupService.getViewBids(this.auctionViewBid).subscribe(
       (res) => {
-        if (res === null) {
-          console.log('No bids to display');
+        if (res.length === 0) {
+          this.noBids = true;
         } else {
           return this.viewBids = res;
         }
@@ -44,7 +50,7 @@ export class ViewBidsPopupComponent implements OnInit {
   }
 
   setWinner(event) {
-    this.viewBidsPopupService.winner(event.target.value).subscribe(
+    this.viewBidsPopupService.winner(event.target.value, this.auctionViewBid).subscribe(
       (res) => {
         console.log(res);
         return;
@@ -58,4 +64,9 @@ export class ViewBidsPopupComponent implements OnInit {
         this.alertService.error(err);
       });
   }
+
+  toggle() {
+    this.isShow  = !this.isShow;
+  }
+
 }

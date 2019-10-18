@@ -1,6 +1,6 @@
-<div class= "myAuctionBox">
-<app-navbar></app-navbar>
-<div  class="displayAuction">
-    <app-auction *ngFor = "let auction of auctions" [auction] = "auction"></app-auction>
-</div>
+<div class="myAuctionBox">
+    <app-navbar></app-navbar>
+    <div class="displayAuction">
+        <app-auction *ngFor="let auction of auctions" [auction]="auction"></app-auction>
+    </div>
 </div>

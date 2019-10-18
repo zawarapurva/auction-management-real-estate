@@ -1,10 +1,10 @@
-<div class="overlay">
-    <div *ngIf="!hideBids" class="viewBid dialog row">
-        <div class="col-12">
+<div *ngIf="isShow" class="overlay">
+    <div *ngIf="!hideBids && !noBids" class="dialog row">
+        <div class=" col-12">
             <div class="title col-4"> Username </div>
             <div class="title col-4"> Bid Value </div>
             <div class="title col-4">
-                <input name="action bg-dark close" type="submit" value="X" onclick="window.history.back();" />
+                <input name="action bg-dark close" type="submit" value="X" (click)="toggle()" />
             </div>
         </div>
         <div class="col-12" *ngFor="let viewBid of viewBids">
@@ -13,18 +13,29 @@
             <div class="rowData col-4">
                 <button id="bidbox" type="submit" class="btn btn-dark ml-2 mr-2" value="{{ viewBid.username }}"
                     (click)="setWinner($event)">
-                    <span *ngIf="loading" class="mr-1"  [routerLink]="['/winner']"></span>
+                    <span *ngIf="loading" class="mr-1"></span>
                     Set Winner
                 </button>
             </div>
         </div>
     </div>
-    <div *ngIf="hideBids">
-        <div class="dialog">
-            <div class="title col-4">
-                <input name="action bg-dark close" type="submit" value="X" onclick="window.history.back();" />
+    <div *ngIf="noBids" class="dialog row">
+        <div class="colPadding col-12">
+            <div class="title col-12">
+                <input name="action close" type="submit" value="X" (click)="toggle()" />
             </div>
-            Winner is {{ winner }}
+            <div class="d-flex pt-2">
+                No bids to display
+            </div>
         </div>
     </div>
-</div>
+    <div *ngIf="hideBids" class="dialog row">
+        <div class="colPadding col-12">
+            <div class="title col-12">
+                <input name="action bg-dark close" type="submit" value="X" (click)="toggle()" />
+            </div>
+            <div class="d-flex pt-2">
+                Winner is {{ winner }}
+            </div>
+        </div>
+    </div>

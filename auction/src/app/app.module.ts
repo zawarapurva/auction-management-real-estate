@@ -1,3 +1,5 @@
+import { SearchService } from './navbar/search.service';
+import { ViewBidsPopupService } from './view-bids-popup/view-bids-popup.service';
 import { ProfileService } from './profile/profile.service';
 import { MyAuctionsService } from './my-auctions/my-auctions.service';
 import { AuctionService } from './auction/auction.service';
@@ -48,7 +50,9 @@ import { AppComponent } from './app.component';
     HomeService,
     AuctionService,
     MyAuctionsService,
-    ProfileService
+    ProfileService,
+    ViewBidsPopupService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

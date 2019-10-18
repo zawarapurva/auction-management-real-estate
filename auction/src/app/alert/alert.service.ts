@@ -8,14 +8,11 @@ export class AlertService {
     private keepAfterRouteChange = false;
 
     constructor(private router: Router) {
-        // clear alert messages on route change unless 'keepAfterRouteChange' flag is true
         this.router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 if (this.keepAfterRouteChange) {
-                    // only keep for a single route change
                     this.keepAfterRouteChange = false;
                 } else {
-                    // clear alert message
                     this.clearAlert();
                 }
             }

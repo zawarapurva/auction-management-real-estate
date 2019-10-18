@@ -25,5 +25,4 @@ export class MyAuctionsComponent implements OnInit {
       }
     );
   }
-
 }

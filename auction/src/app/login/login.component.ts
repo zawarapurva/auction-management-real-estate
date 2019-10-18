@@ -47,15 +47,14 @@ export class LoginComponent implements OnInit {
       (res) => {
         localStorage.setItem('user_id', res.id);
         localStorage.setItem('email', this.loginForm.value.email);
-        this.router.navigate([this.returnUrl]);
-        return this.alertService.success(res.message, true);
+        this.alertService.success(res.message, true);
+        return this.router.navigate([this.returnUrl]);
       },
       (err) => {
         this.loading = false;
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
-            this.error = err.error.message;
-            return this.alertService.error(this.error);
+            return this.alertService.error(err.error.message);
           } else {
             return alert('An unexpected error occured');
           }
