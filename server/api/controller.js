@@ -95,8 +95,8 @@ exports.getAuctions = async (request, h) => {
     try {
         var auction = await auctions.find({});
         return h.response(auction).code(200);
-    } catch (error) {
-        return h.response(error).code(500);
+    } catch (e) {
+        return h.response(e).code(500);
     }
 }
 
@@ -131,8 +131,8 @@ exports.getMyAuctions = async (request, h) => {
     try {
         var auction = await auctions.find({ seller_id: request.query.user_id });
         return h.response(auction).code(200);
-    } catch (error) {
-        return h.response(error).code(500);
+    } catch (e) {
+        return h.response(e).code(500);
     }
 }
 
@@ -163,8 +163,8 @@ exports.getProfile = async (request, h) => {
     try {
         var user = await users.find({ _id: request.query.user_id }, { password: 0 }).lean();
         return h.response(user[0]).code(200);
-    } catch (error) {
-        return h.response(error).code(500);
+    } catch (e) {
+        return h.response(e).code(500);
     }
 }
 
@@ -202,5 +202,18 @@ exports.setWinner = async (request) => {
     } catch (error) {
         console.log(error);
         return error;
+    }
+}
+
+exports.getFilterSearch = async (request, h) => {
+    try {
+        var auction = await auctions.find({ property_type: request.query.property_type });
+        if(auction.length === 0) {
+            return h.response('No auctions to display').code(400);
+        }
+        return h.response(auction).code(200); 
+    } catch (e) {
+        console.log(e);
+        return h.response(e).code(500);
     }
 }

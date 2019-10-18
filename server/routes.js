@@ -100,5 +100,13 @@ module.exports = [
             return h.response(result);
         }
     },
-    
+
+    {
+        method: 'GET',
+        path: '/search',
+        handler:  async (request, h) => {
+            return controller.getFilterSearch(request, h);
+        }
+    },
+
 ]
