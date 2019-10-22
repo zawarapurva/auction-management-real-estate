@@ -5,7 +5,7 @@ const buyers = require('../Models/buyers');
 const isExistingUser = require('../helperFunctions/auth').isExistingUser;
 const verifyCredentials = require('../helperFunctions/verify').verifyCredentials;
 const bidValidator = require('../helperFunctions/bidValidator').bidValidator;
-const uploadPic = require('../upload/imagefile');
+const uploadPic = require('../helperFunctions/imageFileUpload');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 
@@ -15,7 +15,7 @@ exports.register = async (request) => {
         const existingUser = await isExistingUser(request.payload.email, request.payload.username);
         if (!existingUser) {
             const user = new users({
-
+                _id: new ObjectId,
                 firstname: request.payload.firstname,
                 lastname: request.payload.lastname,
                 username: request.payload.username,
@@ -59,13 +59,11 @@ exports.login = async (request) => {
 
 exports.createAuction = async (request) => {
     try {
-        const date = new Date().toISOString();
         const itemPic = request.payload.property_image;
         const type = request.payload.property_image_type;
-        const fileType = type.split("/");
-        const imageName = date + '.' + fileType[1];
-        await uploadPic.handleFileUpload(itemPic, imageName);
+        // await uploadPic.handleFileUpload(itemPic, type);
         const auction = new auctions({
+            _id: new ObjectId,
             seller_id: request.payload.user_id,
             title: request.payload.title,
             property_type: request.payload.property_type,
@@ -75,7 +73,7 @@ exports.createAuction = async (request) => {
             bid_value_multiple: request.payload.bid_value_multiple,
             expiry_date: request.payload.expiry_date,
             image_name: imageName,
-            winner: null
+            winner: "null"
         });
         await auction.save();
         return {
@@ -83,6 +81,7 @@ exports.createAuction = async (request) => {
             code: 200
         }
     } catch (e) {
+        console.log(e);
         return {
             message: 'Error! check all fields',
             code: 400
@@ -102,6 +101,7 @@ exports.getAuctions = async (request, h) => {
 
 exports.bid = async (request) => {
     try {
+        console.log(request);
         const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id, request.payload.buyer_id);
         if (!currentMax) {
             return {
@@ -177,7 +177,6 @@ exports.getMyBids = async (request, h) => {
             a[i] = buyer[i].auction_id
         }
         var auction = await auctions.find({ _id: { $in: a } }).lean();
-        console.log(auction[0]);
         if (auction[0] === undefined) {
             return h.response("No bids to show").code(400)
         } else {
@@ -191,7 +190,7 @@ exports.getMyBids = async (request, h) => {
 exports.setWinner = async (request) => {
     try {
         const auction = await auctions.findOneAndUpdate(
-            { _id: request.payload.auction_id },
+            { _id: request.payload.auctionId },
             { $set: { winner: request.payload.username } },
             { upsert: true, new: true }).lean();
         return {
@@ -208,10 +207,10 @@ exports.setWinner = async (request) => {
 exports.getFilterSearch = async (request, h) => {
     try {
         var auction = await auctions.find({ property_type: request.query.property_type });
-        if(auction.length === 0) {
+        if (auction.length === 0) {
             return h.response('No auctions to display').code(400);
         }
-        return h.response(auction).code(200); 
+        return h.response(auction).code(200);
     } catch (e) {
         console.log(e);
         return h.response(e).code(500);

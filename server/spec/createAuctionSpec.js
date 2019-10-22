@@ -1,7 +1,7 @@
 const testdb = require('./testdb').testdb;
 const controller = require('../api/controller');
 
-const auction =  {
+const request =  {
     payload: {
         seller_id: 1,
         title: "Castle",
@@ -17,11 +17,12 @@ const auction =  {
   describe("check Create Auction functonality", () => {
 
     beforeAll( async() => {
+        console.log("beforeAll");
       await testdb.createCollection("auctions");
     });
 
     it("should be able to save auction to the test database and return code 200", async() => {
-      const auction1 = await controller.createAuction(auction);
+      const auction1 = await controller.createAuction(request);
       expect(auction1.code).toEqual(200);
     });
 

@@ -19,7 +19,7 @@ const request2 = {
     username: "baymax",
     firstname: "bay",
     lastname: "max",
-    businesstype: "Dealer"
+    businesstype: "Ivestor"
   }
 };
 
@@ -37,12 +37,13 @@ const request3 = {
 describe("check user registration", () => {
 
     beforeAll( async() => {
+      console.log("beforeAll");
       await testdb.createCollection("users");
     });
 
     it("should save user and return code 200 for registration successful", async () => {
-        const log_code = await controller.register(request1);
-        expect(log_code.code).toEqual(200);
+        const user = await controller.register(request1);
+        expect(user.code).toEqual(200);
       });
 
     it("should give an erorr if the username is already taken", async() => {
