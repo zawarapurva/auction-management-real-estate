@@ -35,7 +35,7 @@ module.exports = [
         path: '/propertyImg/{file*}',
         handler:{
             directory:{
-                path:'./auction-management-for-real-estate/server/public/',
+                path:'./public/',
             }
         }
     },

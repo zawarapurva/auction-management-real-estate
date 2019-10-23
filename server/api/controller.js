@@ -61,7 +61,10 @@ exports.createAuction = async (request) => {
     try {
         const itemPic = request.payload.property_image;
         const type = request.payload.property_image_type;
-        // await uploadPic.handleFileUpload(itemPic, type);
+        const date = new Date().toISOString();
+        const fileType = type.split("/");
+        const imageName = date + '.' + fileType[1];
+        await uploadPic.handleFileUpload(itemPic, imageName);
         const auction = new auctions({
             _id: new ObjectId,
             seller_id: request.payload.user_id,
@@ -73,7 +76,7 @@ exports.createAuction = async (request) => {
             bid_value_multiple: request.payload.bid_value_multiple,
             expiry_date: request.payload.expiry_date,
             image_name: imageName,
-            winner: "null"
+            winner: null,
         });
         await auction.save();
         return {
@@ -92,7 +95,7 @@ exports.createAuction = async (request) => {
 
 exports.getAuctions = async (request, h) => {
     try {
-        var auction = await auctions.find({});
+        var auction = await auctions.find({ winner : null });
         return h.response(auction).code(200);
     } catch (e) {
         return h.response(e).code(500);
@@ -101,7 +104,6 @@ exports.getAuctions = async (request, h) => {
 
 exports.bid = async (request) => {
     try {
-        console.log(request);
         const currentMax = await bidValidator(request.payload.bid_value, request.payload.auction_id, request.payload.buyer_id);
         if (!currentMax) {
             return {
@@ -139,7 +141,7 @@ exports.getMyAuctions = async (request, h) => {
 exports.getViewBids = async (request, h) => {
     try {
         var auction = await auctions.findOne({ _id: request.query.auction_id }).lean();
-        if (auction.winner === "null") {
+        if (auction.winner === null) {
             var buyer = await buyers.find({ auction_id: request.query.auction_id }, { bid_value: 1, buyer_id: 1, winner: 1, _id: 0 }).lean();
             let a = [];
             for (let i = 0; i < buyer.length; i++) {
@@ -176,7 +178,7 @@ exports.getMyBids = async (request, h) => {
         for (let i = 0; i < buyer.length; i++) {
             a[i] = buyer[i].auction_id
         }
-        var auction = await auctions.find({ _id: { $in: a } }).lean();
+        var auction = await auctions.find({ _id: { $in: a }, winner : null }).lean();
         if (auction[0] === undefined) {
             return h.response("No bids to show").code(400)
         } else {
@@ -206,9 +208,9 @@ exports.setWinner = async (request) => {
 
 exports.getFilterSearch = async (request, h) => {
     try {
-        var auction = await auctions.find({ property_type: request.query.property_type });
+        var auction = await auctions.find({ property_type: request.query.property_type, winner : null });
         if (auction.length === 0) {
-            return h.response('No auctions to display').code(400);
+            return h.response('Oppss!! No auctions to display').code(400);
         }
         return h.response(auction).code(200);
     } catch (e) {
