@@ -93,6 +93,7 @@
                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.expiry_date.errors }" />
                 <div *ngIf="submitted && f.expiry_date.errors" class="invalid-feedback">
                     <div *ngIf="f.expiry_date.errors.required">Expiry date is required</div>
+                    <div *ngIf="f.expiry_date.errors.date">Please input a valid Date</div>
                 </div>
             </div>
 

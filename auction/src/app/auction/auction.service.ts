@@ -11,7 +11,6 @@ export class AuctionService {
   ) { }
 
   auction(formValues) {
-    console.log(formValues);
     return this.httpClient.post<any>(environment.homeurl, formValues);
   }
 }

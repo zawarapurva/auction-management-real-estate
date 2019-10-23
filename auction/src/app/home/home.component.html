@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
-<div  class="displayAuction">
+<div *ngIf="!noAuctions" class="displayAuction">
     <app-auction *ngFor = "let auction of auctions" [auction] = "auction"></app-auction>
+</div>
+<div *ngIf="noAuctions" class="noAuction d-flex justify-content-center ">
+    {{ noAuctionString }}
 </div>

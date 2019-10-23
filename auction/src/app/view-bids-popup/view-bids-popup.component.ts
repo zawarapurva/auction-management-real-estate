@@ -28,7 +28,7 @@ export class ViewBidsPopupComponent implements OnInit {
     this.noBids = false;
     this.viewBidsPopupService.getViewBids(this.auctionViewBid).subscribe(
       (res) => {
-        if (res.length === 0) {
+        if (res.length === 0 || res === null) {
           this.noBids = true;
         } else {
           return this.viewBids = res;
@@ -37,7 +37,6 @@ export class ViewBidsPopupComponent implements OnInit {
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 200) {
-            console.log(err.error.text);
             this.hideBids = true;
             return this.winner = err.error.text;
           }
@@ -53,7 +52,8 @@ export class ViewBidsPopupComponent implements OnInit {
     this.viewBidsPopupService.winner(event.target.value, this.auctionViewBid).subscribe(
       (res) => {
         console.log(res);
-        return;
+        this.hideBids = true;
+        return this.winner = res.winner;
       },
       (err) => {
         if (err instanceof HttpErrorResponse) {

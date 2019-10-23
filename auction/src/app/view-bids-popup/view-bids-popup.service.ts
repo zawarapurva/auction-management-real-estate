@@ -18,7 +18,6 @@ export class ViewBidsPopupService {
   }
 
   winner(username, auctionId) {
-    console.log(username);
     return this.httpClient.post<any>(environment.winner, { username, auctionId });
   }
 }

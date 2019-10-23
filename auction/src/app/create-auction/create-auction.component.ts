@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CreateAuctionService } from './create-auction.service';
+import { dateValidator } from '../validators/date.validtor';
 
 @Component({
   selector: 'app-create-auction',
@@ -38,7 +39,7 @@ export class CreateAuctionComponent implements OnInit {
       description: ['', Validators.required],
       min_starting_bid: ['', Validators.required],
       bid_value_multiple: ['', Validators.required],
-      expiry_date: ['', Validators.required],
+      expiry_date: ['', dateValidator()],
       property_image: ['', Validators.required]
     });
   }
@@ -79,8 +80,7 @@ export class CreateAuctionComponent implements OnInit {
         (err) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 400 || err.status === 500) {
-              this.error = err.error.message;
-              this.alertService.error(this.error);
+              this.alertService.error(err.error.message);
               console.log(err);
             } else {
               return alert('An unexpected error occured');

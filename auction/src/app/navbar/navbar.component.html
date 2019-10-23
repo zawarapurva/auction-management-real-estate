@@ -5,23 +5,18 @@
             <a class="logo" routerLink="/home">
                 <img src="https://i.postimg.cc/HLB5x1S0/imageinverted.png" class="img" alt="logo" style="width:100px; height: 70px;">
             </a>
-            <a *ngIf="!isLoggedIn()" class="search nav-item nav-link d-flex align-self-center font-weight-bold " data-toggle="tab" >
-                <div id="myAuction" class=" container d-none d-sm-block" routerLink="/about">
-                    About us
-                </div>
-            </a>
-            <a *ngIf="isLoggedIn()" class="search nav-item nav-link d-flex align-self-center font-weight-bold" data-toggle="tab">
-                <div id="myAuction" class="container d-none d-sm-block" routerLink="/myAuctions">
+            <a *ngIf="isLoggedIn()" class="search d-flex align-self-center font-weight-bold" data-toggle="tab">
+                <div id="myAuction" class="nav-item container d-none d-sm-block" routerLink="/myAuctions">
                     My Auctions
                 </div>
             </a>
-            <a *ngIf="isLoggedIn()" class="search nav-item nav-link align-self-center font-weight-bold"  data-toggle="tab">
-                <div id="createAuction" class="container d-none d-sm-block" routerLink="/createAuction">
+            <a *ngIf="isLoggedIn()" class="search align-self-center font-weight-bold"  data-toggle="tab">
+                <div id="createAuction" class="nav-item container d-none d-sm-block" routerLink="/createAuction">
                     Create Auction
                 </div>
             </a>
-            <a *ngIf="isLoggedIn()" class="search nav-item nav-link align-self-center font-weight-bold" data-toggle="tab">
-                <div class="container dropdown">
+            <a *ngIf="isLoggedIn()" class="search align-self-center font-weight-bold" data-toggle="tab">
+                <div class="nav-item container dropdown">
                     Search
                     <div class="dropbtn hover dropdown-content font-weight-light ">
                         <a (click)="search($event)">All</a>
@@ -32,7 +27,7 @@
                     </div>
                 </div>
             </a>
-            <a class="profile nav-item nav-link " data-toggle="tab" >
+            <a class="profile nav-item" data-toggle="tab" >
                 <div class="container dropdown">
                     <img  src="https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
                         alt="Profile" style="width:50px; height: 50px;">

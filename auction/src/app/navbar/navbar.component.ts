@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit {
   }
 
   search(event) {
-    console.log(event.target.text);
     return this.router.navigate(['/home'], { queryParams: { property_type: event.target.text } });
   }
 

@@ -14,7 +14,8 @@
 }
 
 .nav-item {
-    cursor: pointer
+    cursor: pointer;
+    color: white;
 }
 
 .dropbtn {
