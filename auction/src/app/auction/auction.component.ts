@@ -28,6 +28,7 @@ export class AuctionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.auction);
     if (localStorage.getItem('user_id') === this.auction.seller_id) {
       this.myAuction = true;
     } else { this.myAuction = false; }
@@ -53,17 +54,15 @@ export class AuctionComponent implements OnInit {
     const formValues = this.bid.value;
     this.auctionservice.auction(formValues).subscribe(
       (res) => {
-        console.log(res);
         this.alertService.success(res.message, true);
-        return this.auction.max_current_bid = formValues.bid_value;
+        this.auction.max_current_bid = formValues.bid_value;
       },
       (err) => {
         this.loading = false;
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
-            this.error = err.error.message;
-            this.alertService.error(this.error);
-            return this.auction.max_current_bid = err.error.currentMax;
+            this.alertService.error(err.error.message);
+            this.auction.max_current_bid = err.error.currentMax;
           }
         }
         this.alertService.error(err);

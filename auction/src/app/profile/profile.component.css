@@ -13,3 +13,7 @@ img {
   cursor: pointer;
   color: white;
 }
+
+.noAuction {
+  margin-top: 100px;
+}

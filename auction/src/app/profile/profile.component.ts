@@ -4,7 +4,6 @@ import { AlertService } from './../alert/alert.service';
 import { User } from './../Modals/Users';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auction } from '../Modals/Auction';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +15,8 @@ export class ProfileComponent implements OnInit {
   public auctions = [];
   error: any;
   toggle: boolean;
+  noAuctions: boolean;
+  noAuctionString: string;
   constructor(
     private router: Router,
     private alertService: AlertService,
@@ -27,12 +28,13 @@ export class ProfileComponent implements OnInit {
     this.alertService.clearAlert();
     this.profileService.getProfile().subscribe(
       (res) => {
-        return  this.user = res;
+        this.user = res;
       },
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
-            return  this.alertService.error(err.error.message);
+            console.log(err.error);
+            this.alertService.error(err.error);
           }
         }
         this.alertService.error(err);
@@ -40,21 +42,22 @@ export class ProfileComponent implements OnInit {
   }
 
   viewMyBids() {
+    this.noAuctions = false;
     if (!this.toggle) {
       this.profileService.getMyBids().subscribe(
         (res) => {
-          return this.auctions = res;
+          this.auctions = res;
         },
         (err) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 400 || err.status === 500) {
-              this.error = err.error;
-              return  this.alertService.error(this.error);
-        }
-      }
-    });
+              this.noAuctions = true;
+              this.noAuctionString = err.error;
+            }
+          }
+        });
     }
-    this.toggle = ! this.toggle;
+    this.toggle = !this.toggle;
   }
 
   logout() {

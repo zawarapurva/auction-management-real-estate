@@ -1,4 +1,4 @@
-import { AlertService } from './../alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MyAuctionsService } from './my-auctions.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,20 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyAuctionsComponent implements OnInit {
   public auctions = [];
+  noAuctions: boolean;
+  noAuctionString: string;
   constructor(
-    private alertService: AlertService,
     private myAuctionsService: MyAuctionsService
   ) { }
 
   ngOnInit() {
+    this.noAuctions = false;
     this.myAuctionsService.getMyAuctions().subscribe(
       (res) => {
-        console.log(res);
-        return this.auctions = res;
+        this.auctions = res;
       },
       (err) => {
-        return this.alertService.error(err.error.message);
-      }
-    );
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 400 || err.status === 500) {
+            this.noAuctions = true;
+            this.noAuctionString = err.error;
+          }
+        }
+      });
   }
 }

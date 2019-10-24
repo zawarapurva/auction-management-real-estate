@@ -38,7 +38,7 @@ export const routingComponents = [
   CreateAuctionComponent,
   ProfileComponent,
   AuctionComponent,
-  PageNotFoundComponent,
   MyAuctionsComponent,
-  ViewBidsPopupComponent
+  ViewBidsPopupComponent,
+  PageNotFoundComponent
  ];

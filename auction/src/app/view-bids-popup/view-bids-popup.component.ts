@@ -31,17 +31,17 @@ export class ViewBidsPopupComponent implements OnInit {
         if (res.length === 0 || res === null) {
           this.noBids = true;
         } else {
-          return this.viewBids = res;
+          this.viewBids = res;
         }
       },
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 200) {
             this.hideBids = true;
-            return this.winner = err.error.text;
+            this.winner = err.error.text;
           }
           if (err.status === 400 || err.status === 500) {
-            return this.alertService.error(err.error.message);
+            this.alertService.error(err.error.message);
           }
         }
         this.alertService.error(err);
@@ -53,12 +53,12 @@ export class ViewBidsPopupComponent implements OnInit {
       (res) => {
         console.log(res);
         this.hideBids = true;
-        return this.winner = res.winner;
+        this.winner = res.winner;
       },
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
-            return this.alertService.error(err.error.message);
+            this.alertService.error(err.error.message);
           }
         }
         this.alertService.error(err);

@@ -1,7 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { AlertService } from './../alert/alert.service';
-import { SearchService } from './search.service';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 

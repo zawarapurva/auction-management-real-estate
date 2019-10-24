@@ -63,7 +63,6 @@ export class CreateAuctionComponent implements OnInit {
     this.submitted = true;
     this.alertService.clearAlert();
     if (this.createAuctionFormGroup.invalid) {
-      console.log(this.createAuctionFormGroup.invalid);
       return;
     }
     const formValues = this.createAuctionFormGroup.value;
@@ -80,8 +79,8 @@ export class CreateAuctionComponent implements OnInit {
         (err) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 400 || err.status === 500) {
+              console.log(err.error.message);
               this.alertService.error(err.error.message);
-              console.log(err);
             } else {
               return alert('An unexpected error occured');
             }

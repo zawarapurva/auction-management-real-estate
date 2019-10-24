@@ -1,3 +1,7 @@
+import { NavbarComponent } from './navbar/navbar.component';
+import { AlertComponent } from './alert/alert.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 import { SearchService } from './navbar/search.service';
 import { ViewBidsPopupService } from './view-bids-popup/view-bids-popup.service';
 import { ProfileService } from './profile/profile.service';
@@ -12,10 +16,6 @@ import { HomeService } from './home/home.service';
 
 import { LoginGuard } from './auth/guard/login.guard';
 import { AuthGuard } from './auth/guard/auth.guard';
-
-import { NavbarComponent } from './navbar/navbar.component';
-import { AlertComponent } from './alert/alert.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -45,14 +45,14 @@ import { AppComponent } from './app.component';
     LoginService,
     AlertService,
     AuthService,
-    AuthGuard,
-    LoginGuard,
     HomeService,
     AuctionService,
     MyAuctionsService,
     ProfileService,
     ViewBidsPopupService,
-    SearchService
+    SearchService,
+    AuthGuard,
+    LoginGuard,
   ],
   bootstrap: [AppComponent]
 })
