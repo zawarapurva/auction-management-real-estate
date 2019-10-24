@@ -15,6 +15,7 @@
     "l": "^0.6.0",
     "mongoose": "^5.6.11",
     "mv": "^2.1.1",
+    "nodemailer": "^6.3.1",
     "nodemon": "^1.19.2"
   },
   "devDependencies": {

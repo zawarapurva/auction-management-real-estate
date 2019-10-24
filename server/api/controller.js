@@ -8,6 +8,7 @@ const bidValidator = require('../helperFunctions/bidValidator').bidValidator;
 const uploadPic = require('../helperFunctions/imageFileUpload');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
+const winnerMailService = require('../helperFunctions/mailService');
 
 exports.register = async (request) => {
     try {
@@ -95,7 +96,7 @@ exports.createAuction = async (request) => {
 
 exports.getAuctions = async (request, h) => {
     try {
-        var auction = await auctions.find({ winner : null });
+        var auction = await auctions.find({ winner: null });
         return h.response(auction).code(200);
     } catch (e) {
         return h.response(e).code(500);
@@ -132,6 +133,9 @@ exports.bid = async (request) => {
 exports.getMyAuctions = async (request, h) => {
     try {
         var auction = await auctions.find({ seller_id: request.query.user_id });
+        if (auction.length === 0) {
+            return h.response('No Auctions to display. Create a Auction').code(400);
+        }
         return h.response(auction).code(200);
     } catch (e) {
         return h.response(e).code(500);
@@ -154,6 +158,7 @@ exports.getViewBids = async (request, h) => {
             return h.response(a).code(200);
         }
         else {
+            console.log(auction.winner);
             return h.response(auction.winner).code(200);
         }
     } catch (e) {
@@ -178,7 +183,7 @@ exports.getMyBids = async (request, h) => {
         for (let i = 0; i < buyer.length; i++) {
             a[i] = buyer[i].auction_id
         }
-        var auction = await auctions.find({ _id: { $in: a }, winner : null }).lean();
+        var auction = await auctions.find({ _id: { $in: a }, winner: null }).lean();
         if (auction[0] === undefined) {
             return h.response("No bids to show").code(400)
         } else {
@@ -195,6 +200,8 @@ exports.setWinner = async (request) => {
             { _id: request.payload.auctionId },
             { $set: { winner: request.payload.username } },
             { upsert: true, new: true }).lean();
+        const user = await users.findOne({ username: request.payload.username }, { email: 1, _id: 0 }).lean();
+        await winnerMailService.mailService(user.email, auction.title);
         return {
             winner: auction.winner,
             message: 'Winner Set',
@@ -208,7 +215,7 @@ exports.setWinner = async (request) => {
 
 exports.getFilterSearch = async (request, h) => {
     try {
-        var auction = await auctions.find({ property_type: request.query.property_type, winner : null });
+        var auction = await auctions.find({ property_type: request.query.property_type, winner: null });
         if (auction.length === 0) {
             return h.response('Oppss!! No auctions to display').code(400);
         }
