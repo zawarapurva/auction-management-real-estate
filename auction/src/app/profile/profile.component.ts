@@ -3,7 +3,6 @@ import { ProfileService } from './profile.service';
 import { AlertService } from './../alert/alert.service';
 import { User } from './../Modals/Users';
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +17,6 @@ export class ProfileComponent implements OnInit {
   noAuctions: boolean;
   noAuctionString: string;
   constructor(
-    private router: Router,
     private alertService: AlertService,
     private profileService: ProfileService
   ) { }
@@ -58,10 +56,5 @@ export class ProfileComponent implements OnInit {
         });
     }
     this.toggle = !this.toggle;
-  }
-
-  logout() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
   }
 }

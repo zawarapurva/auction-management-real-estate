@@ -1,24 +1,33 @@
-.dropbox {
-    outline: 2px dashed grey; /* the dash box */
-    outline-offset: -10px;
-    background: #bebebe;
-    color: dimgray;
-    padding: 10px 10px;
-    min-height: 200px; /* minimum height */
-    position: relative;
-    cursor: pointer;
-}
-
-.dropbox:hover {
-    background: rgb(39, 42, 43); /* when mouse over to the drop zone, change color */
-}
-
-.dropbox p {
-    font-size: 1.2em;
-    text-align: center;
-    padding: 50px 0;
+.container .jumbotron {
+    padding: 0px 3px;
 }
 
 .createAuctionBox {
-    margin-top: 90px;
+    background-image: url('https://images.unsplash.com/photo-1503174971373-b1f69850bded?ixlib=rb-1.2.1&auto=format&fit=crop&w=1987&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position:fixed;
+    overflow: auto;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%
+}
+
+.jumbotron {
+    background: transparent;
+}
+
+form {
+    border-radius: 15px;
+    background-color: white;
+    opacity: 0.85;
+    padding: 30px
+}
+
+.flex-box {
+    padding-top: 60px
 }
