@@ -16,7 +16,6 @@ export class CreateAuctionComponent implements OnInit {
   createAuctionFormGroup: FormGroup;
   loading = false;
   submitted = false;
-  error: string;
   uploadedFiles = [];
   uploadError;
   currentStatus: number;
@@ -72,8 +71,7 @@ export class CreateAuctionComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (res) => {
-          this.resp = res.message;
-          this.alertService.success('Auction successfully created', true);
+          this.alertService.success(res.message, true);
           this.router.navigate(['/home']);
         },
         (err) => {
@@ -85,7 +83,6 @@ export class CreateAuctionComponent implements OnInit {
               return alert('An unexpected error occured');
             }
           }
-          this.alertService.error(err);
         });
   }
 }

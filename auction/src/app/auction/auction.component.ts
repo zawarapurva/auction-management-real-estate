@@ -17,7 +17,6 @@ export class AuctionComponent implements OnInit {
   bid: FormGroup;
   loading = false;
   submitted = false;
-  error: any;
   myAuction: boolean;
   auctionViewBid: string;
   isShow: boolean;
@@ -28,7 +27,6 @@ export class AuctionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.auction);
     if (localStorage.getItem('user_id') === this.auction.seller_id) {
       this.myAuction = true;
     } else { this.myAuction = false; }
@@ -65,7 +63,6 @@ export class AuctionComponent implements OnInit {
             this.auction.max_current_bid = err.error.currentMax;
           }
         }
-        this.alertService.error(err);
       });
   }
 

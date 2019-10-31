@@ -12,11 +12,9 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    resp: string;
     registerForm: FormGroup;
     loading = false;
     submitted = false;
-    error: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,13 +53,11 @@ onSubmit() {
       this.loading = false;
       if (err instanceof HttpErrorResponse) {
         if (err.status === 400 || err.status === 500) {
-          this.error = err.error.message;
-          this.alertService.error(this.error);
+          this.alertService.error(err.error.message);
         } else {
           return alert('An unexpected error occured');
         }
       }
-      this.alertService.error(err);
     });
 }
 }

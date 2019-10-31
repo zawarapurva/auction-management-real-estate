@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
                 this.alertService.error(err.error);
               }
             }
-            this.alertService.error(err);
           });
       } else {
         this.noAuctions = false;

@@ -14,8 +14,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  error: string;
-  resp: string;
   returnUrl: string;
 
   constructor(
@@ -59,7 +57,6 @@ export class LoginComponent implements OnInit {
             return alert('An unexpected error occured');
           }
         }
-        this.alertService.error(err);
       });
   }
 }

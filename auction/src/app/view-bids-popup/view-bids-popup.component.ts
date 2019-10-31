@@ -13,7 +13,6 @@ export class ViewBidsPopupComponent implements OnInit {
   public viewBids = [];
   @Input() auctionViewBid: any ;
   @Input() isShow: any ;
-  error: string;
   hideBids: boolean;
   winner: string;
   noBids: boolean;
@@ -44,7 +43,6 @@ export class ViewBidsPopupComponent implements OnInit {
             this.alertService.error(err.error.message);
           }
         }
-        this.alertService.error(err);
       });
   }
 
@@ -61,7 +59,6 @@ export class ViewBidsPopupComponent implements OnInit {
             this.alertService.error(err.error.message);
           }
         }
-        this.alertService.error(err);
       });
   }
 

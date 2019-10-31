@@ -41,20 +41,26 @@
                 <ng-template #bidButton>
                     <form [formGroup]="bid" (ngSubmit)="onSubmit()"
                         class="d-flex justify-content-center align-items-center mt-5 col-sm-12 col-lg-4 float-right">
-                        <input type="number" formControlName="bid_value" id="{{auction._id}}"
-                            class="form-group form-control border rounded"
-                            placeholder="Multiple of {{auction.bid_value_multiple}}"
-                            [ngClass]="{ 'is-invalid': submitted && f.bid_value.errors }">
-                        <div *ngIf="submitted && f.bid_value.errors" class="invalid-feedback">
-                            <div *ngIf="f.bid_value.errors.validBid">
-                                Bid should be multiple of {{ auction.bid_value_multiple }} </div>
-                            <div *ngIf="f.bid_value.errors.min">Bid should be greater than the
-                                {{auction.max_current_bid}}</div>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="number" formControlName="bid_value" id="{{auction._id}}"
+                                class="form-group form-control border rounded"
+                                placeholder="Multiple of {{auction.bid_value_multiple}}"
+                                [ngClass]="{ 'is-invalid': submitted && f.bid_value.errors }">
+                                <div *ngIf="submitted && f.bid_value.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bid_value.errors.validBid">
+                                        Bid should be multiple of {{ auction.bid_value_multiple }} </div>
+                                    <div *ngIf="f.bid_value.errors.min">Bid should be greater than the
+                                        {{auction.max_current_bid}}</div>
+                                </div>
+                            </div>
+                           <div class="col-4">
+                            <button id="bidbox" type="submit" class="form-group btn btn-dark ml-2 mr-2">
+                                <span *ngIf="loading" class="mr-1"></span>
+                                $Bid
+                            </button>
+                           </div>
                         </div>
-                        <button id="bidbox" type="submit" class="form-group btn btn-dark ml-2 mr-2">
-                            <span *ngIf="loading" class="mr-1"></span>
-                            $Bid
-                        </button>
                     </form>
                 </ng-template>
             </div>

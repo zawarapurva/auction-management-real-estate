@@ -12,7 +12,6 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ProfileComponent implements OnInit {
   @Input() user: User;
   public auctions = [];
-  error: any;
   toggle: boolean;
   noAuctions: boolean;
   noAuctionString: string;
@@ -31,11 +30,9 @@ export class ProfileComponent implements OnInit {
       (err) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 400 || err.status === 500) {
-            console.log(err.error);
             this.alertService.error(err.error);
           }
         }
-        this.alertService.error(err);
       });
   }
 
