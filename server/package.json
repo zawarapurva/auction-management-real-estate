@@ -19,6 +19,8 @@
     "nodemon": "^1.19.2"
   },
   "devDependencies": {
+    "@hapi/code": "^7.0.0",
+    "@hapi/lab": "^21.0.0",
     "jasmine-node": "^3.0.0"
   },
   "scripts": {

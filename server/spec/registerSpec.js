@@ -37,7 +37,6 @@ const request3 = {
 describe("check user registration", () => {
 
     beforeAll( async() => {
-      console.log("beforeAll");
       await testdb.createCollection("users");
     });
 

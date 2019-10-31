@@ -9,10 +9,10 @@ exports.mailService = (email, title) => {
         }
     });
     const mailOptions = {
-        from: 'zawarapurva24@gmail.com', // sender address
-        to: email, // list of receivers
-        subject: 'Auction Winner', // Subject line
-        html: '<p>Congragulations on your new place!! You are the winner for auction </p>'+ title// plain text body
+        from: 'zawarapurva24@gmail.com',
+        to: email,
+        subject: 'Auction Winner',
+        html: '<p>Congragulations on your new place!! You are the winner for auction </p>'+ title
     };
     transporter.sendMail(mailOptions, function (err, info) {
         if (err)

@@ -60,12 +60,7 @@ exports.login = async (request) => {
 
 exports.createAuction = async (request) => {
     try {
-        const itemPic = request.payload.property_image;
-        const type = request.payload.property_image_type;
-        const date = new Date().toISOString();
-        const fileType = type.split("/");
-        const imageName = date + '.' + fileType[1];
-        await uploadPic.handleFileUpload(itemPic, imageName);
+        const imageName = await uploadPic.handleFileUpload(request.payload.property_image, request.payload.property_image_type);
         const auction = new auctions({
             _id: new ObjectId,
             seller_id: request.payload.user_id,
@@ -76,23 +71,21 @@ exports.createAuction = async (request) => {
             min_starting_bid: request.payload.min_starting_bid,
             bid_value_multiple: request.payload.bid_value_multiple,
             expiry_date: request.payload.expiry_date,
-            image_name: imageName,
+            image_name: imageName.imageName,
             winner: null,
         });
         await auction.save();
         return {
-            message: 'Success',
+            message: 'Auction Successfully created',
             code: 200
         }
     } catch (e) {
-        console.log(e);
         return {
             message: 'Error! check all fields',
             code: 400
         }
     }
 }
-
 
 exports.getAuctions = async (request, h) => {
     try {
