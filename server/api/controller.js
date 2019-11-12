@@ -178,9 +178,9 @@ exports.getMyBids = async (request, h) => {
         }
         var auction = await auctions.find({ _id: { $in: a }, winner: null }).lean();
         if (auction[0] === undefined) {
-            return h.response("No bids to show").code(400)
+            return h.response("No bids to show").code(400);
         } else {
-            return h.response(auction).code(200)
+            return h.response(auction).code(200);
         };
     } catch (error) {
         return h.response(error).code(500);

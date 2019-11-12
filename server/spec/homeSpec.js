@@ -6,7 +6,6 @@ const { init } = require('../server');
 
 const users = require('../Models/users');
 const auctions = require('../Models/auctions');
-const buyers = require('../Models/buyers');
 
 const request4 = {
     payload: {
@@ -76,13 +75,13 @@ describe('Check auction fetch and bid functionality', () => {
         await testdb.createCollection("buyers");
         await controller.createAuction(request);
         await controller.createAuction(request3);
-        const user1 = await controller.register(request4);
-        const user2 = await controller.register(request5);
+        await controller.register(request4);
+        await controller.register(request5);
     });
 
     it('it should be able to fetch the auction and return code 200', async () => {
         const response = await server.inject({
-            method: 'get',
+            method: 'GET',
             url: '/home'
         });
         expect(response.statusCode).toEqual(200);
@@ -115,7 +114,6 @@ describe('Check auction fetch and bid functionality', () => {
                 auction_id: auctionId1
             }
         });
-        console.log(response);
         expect(response.statusCode).toEqual(400);
     });
 

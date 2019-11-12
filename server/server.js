@@ -16,6 +16,7 @@ server.route({
         return 'Auctions Home';
     }
 });
+
 server.register(Inert);
 server.route(routes);
 

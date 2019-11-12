@@ -81,6 +81,7 @@ module.exports = [
         method: 'GET',
         path: '/viewBids',
         handler: async (request, h) => {
+            console.log("==============view bids=================");
             return controller.getViewBids(request, h);
         }
     },
@@ -89,6 +90,7 @@ module.exports = [
         method: 'GET',
         path: '/profile',
         handler: async (request, h) => {
+            console.log("==============Profile=================");
             return controller.getProfile(request, h);
         }
     },
@@ -97,6 +99,7 @@ module.exports = [
         method: 'GET',
         path: '/myBids',
         handler: async (request, h) => {
+            console.log("==============my bids=================");
             return controller.getMyBids(request, h);
         }
     },
@@ -105,6 +108,7 @@ module.exports = [
         method: 'POST',
         path: '/winner',
         handler: async (request, h) => {
+            console.log("==============winner=================");
             const result = await controller.setWinner(request);
             return h.response(result);
         }
@@ -114,6 +118,7 @@ module.exports = [
         method: 'GET',
         path: '/search',
         handler: async (request, h) => {
+            console.log("==============search=================");
             return controller.getFilterSearch(request, h);
         }
     },
